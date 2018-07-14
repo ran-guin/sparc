@@ -1,31 +1,47 @@
 <template lang='pug'>
   div
     PrivateHeader.header
-    div.body.container
-      h4 Social Platform Affecting Real Connections
-      div.col-md-6
-        h5 Interests
-        RecursiveList(:list='aliases' :onPick='interestModal' :options='options')
-      div.col-md-6
-        h5 Skills
-        ul
-          li(v-for='skill in skills')
-            b {{skill}}
+    div.body
+      div.container
+        h4 Social Platform Affecting Real Connections
+      hr
+      div.container
+        span(v-for='page in pages')
+          button.btn.btn-lg.button-primary(@click.prevent="showPage(page)" v-bind:class="[{onPage: show==page}, {offPage: show!=page}]") 
+            b {{page}}
+          span &nbsp; &nbsp;
+        <!-- button.btn.btn-lg.button-primary(@click.prevent="showPage('interests')")  -->
+          <!-- b Interests -->
+        span &nbsp; &nbsp;
+        p &nbsp;
+
+      div.onPage
+        p &nbsp;
+        Interests(v-if="show==='Interests'" :list='interests')
+        Events(v-if="show==='Events'" :list='events')
+        Host(v-if="show==='Host'" :list='interests')
+
+        About(v-if="show=='About'")
+        Ideas(v-if="show==='Ideas'")
+        p &nbsp;
+
     PublicFooter.footer
 </template>
 
 <script>
-import DataGrid from './../Standard/DataGrid.vue'
+import Interests from './Interests'
+import Events from './Events'
+import Ideas from './Ideas'
+import About from './About'
+import Host from './Host'
 
-import Modal from './../Standard/Modal.vue'
-import Messaging from './../Standard/Messaging.vue'
-import RecursiveList from './../Standard/RecursiveList.vue'
+import Modal from './../Standard/Modal'
 
 import PrivateHeader from './PrivateHeader.vue'
 import PublicFooter from './PublicFooter.vue'
 
 import axios from 'axios'
-import config from '@/config.js'
+import config from './config.js'
 
 import 'vue-awesome/icons/check-circle'
 import 'vue-awesome/icons/warning'
@@ -37,22 +53,27 @@ import 'vue-awesome/icons/question-circle'
 export default {
   name: 'ovid',
   components: {
-    DataGrid,
-    Messaging,
+    Interests,
+    Events,
+    Ideas,
+    About,
+    Host,
     Modal,
-    RecursiveList,
     PrivateHeader,
     PublicFooter
   },
   data () {
     return {
+      pages: ['Interests', 'Events', 'Host', 'About', 'Ideas'],
+      show: 'Events',
+      onPage: 'Events',
       skillURL: config.skillMirrorUrl,
       interestURL: config.interestMirrorUrl,
-      interests: [{id: 1, 'name': 'sport', 'parent_id': null, selected: true}, {id: 2, 'name': 'social', 'parent_id': null, selected: true}, {id: 3, 'name': 'cultural', 'parent_id': null, selected: true}, {id: 4, 'name': 'running', 'parent_id': 1, selected: true}, {id: 5, 'name': 'biking', 'parent_id': 1, selected: true}, {id: 6, 'name': 'climbing', 'parent_id': 1}, {id: 7, 'name': 'trail', 'parent_id': 4, selected: true}, {id: 8, 'name': '5k', 'parent_id': 4, selected: true, skill_level: '20 min'}, {id: 9, 'name': '10k', 'parent_id': 4}, {id: 10, 'name': 'marathon', 'parent_id': 4, selected: true}, {id: 11, 'name': 'touring', 'parent_id': 5, selected: true}, {id: 12, 'name': 'road', 'parent_id': 5, selected: true}, {id: 13, 'name': 'mountain', 'parent_id': 5, selected: true}, {id: 14, 'name': 'trad', 'parent_id': 6}, {id: 15, 'name': 'sport climbing', 'parent_id': 6}, {id: 16, 'name': 'gym climbing', 'parent_id': 6}, {id: 17, 'name': 'dinner parties', 'parent_id': 2, selected: true}, {id: 18, 'name': 'potlucks', 'parent_id': 17, selected: true}, {id: 19, 'name': 'hosted', 'parent_id': 17, selected: true}, {id: 20, 'name': 'board games', 'parent_id': 2, selected: false}, {id: 21, 'name': 'Settlers of Cataan', 'parent_id': 20, selected: false}, {id: 22, 'name': 'Scrabble', 'parent_id': 20, selected: false}, {id: 23, 'name': 'museum', 'parent_id': 3, selected: true}, {id: 24, 'name': 'art gallery', 'parent_id': 3, selected: true}, {id: 25, 'name': 'ballet', 'parent_id': 3, selected: true}, {id: 26, 'name': 'opera', 'parent_id': 3, selected: true}, {id: 27, 'name': 'dancing', 'parent_id': 2, selected: true}, {id: 28, 'name': 'swing', 'parent_id': 27, selected: true}, {id: 29, 'name': 'blues', 'parent_id': 27, selected: true}, {id: 30, 'name': 'club', 'parent_id': 27, selected: true}, {id: 31, 'name': 'sports (watching)', 'parent_id': 2, selected: true}, {id: 32, 'name': 'philosophy', 'parent_id': 3, selected: true}, {id: 33, 'name': 'politics', 'parent_id': 3, selected: true}, {id: 34, 'name': 'science', 'parent_id': 3, selected: true}, {id: 35, 'name': 'hockey', 'parent_id': 31, selected: true}, {id: 36, 'name': 'football (American)', 'part_id': 31, selected: true}, {id: 37, 'name': 'football (European)', 'parent_id': 31, selected: true}, {id: 38, 'name': 'basketball', 'parent_id': 31}],
-
-      skills: [{'activity': 'running', 'skill': 'complete newbie', 'level': 1}, {'activity': 'running', 'skill': 'beginner', 'level': 2}, {'activity': 'running', 'skill': 'intermediate', 'level': 3}, {'activity': 'running', 'skill': 'advanced', 'level': 4}, {'activity': 'running', 'skill': 'elite', 'level': 5}, {'activity': 'sport climbing', 'skill': 'complete newbie', 'level': 1}, {'activity': 'sport climbing', 'skill': '< 5.9', 'level': 2}, {'activity': 'sport climbing', 'skill': '50', 'level': 3}, {'activity': 'sport climbing', 'skill': '5.11', 'level': 4}, {'activity': 'sport climbing', 'skill': '5.12', 'level': 5}, {'activity': 'sport climbing', 'skill': '5.13+', 'level': 6}, {'activity': 'sport climbing', 'skill': 'top-rope', 'level': 1}, {'activity': 'sport climbing', 'skill': 'lead', 'level': 2}],
+      interests: config.demo_interests,
+      skills: config.demo_skills,
+      events: config.demo_events,
       openInterests: {'idnull': true, 'id0': true, 'id1': true},
-      options: { nameKey: 'alias' }
+      bc: 'green'
     }
   },
   props: {
@@ -93,20 +114,6 @@ export default {
     })
   },
   computed: {
-    aliases: function () {
-      var aliases = []
-      for (var i = 0; i < this.interests.length; i++) {
-        var interest = JSON.parse(JSON.stringify(this.interests[i]))
-
-        if (interest.skill_level) {
-          interest.alias = interest.name + '[' + interest.skill_level + ']'
-        } else {
-          interest.alias = interest.name
-        }
-        aliases.push(interest)
-      }
-      return aliases
-    },
     storedInterests: function () {
       var C = this.$store.getters.getHash('interests') || []
       console.log('load Interests: ' + JSON.stringify(C))
@@ -114,17 +121,32 @@ export default {
     }
   },
   methods: {
-    interestModal: function (record) {
-      console.log('retrieve more schedule info from record: ' + JSON.stringify(record))
-
-      this.$store.dispatch('setModalData', record)
-      this.$store.getters.toggleModal('info-modal')
+    showPage (page) {
+      console.log('show ' + page)
+      this.show = page
+      console.log('now ' + this.show)
     }
   }
 }
 </script>
 
 <style>
+
+.onPage {
+  color: black;
+  background-color: lightgreen !important;
+}
+.onPage:hover {
+  color: black;
+  background-color: lightgreen !important;
+}
+.offPage {
+  background-color: #eee !important;
+}
+.offPage:hover {
+  background-color: #aaa !important;
+}
+
 .page {
   /*margin-top: -20px;*/
   height: 100%;
@@ -223,5 +245,4 @@ export default {
     margin-top: -15px;
     padding-right: 50px;
   }
-
 </style>
