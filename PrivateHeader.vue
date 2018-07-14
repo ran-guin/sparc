@@ -1,27 +1,26 @@
 <template lang='pug'>
   div.info-header
-    div.col-md-2.info-logo
-      a(href='/')
-        img(src='/static/images/needleIcon.png' height='40px')
-    div.col-md-6.info-left
-      b.input-lg SPARC - &nbsp; &nbsp;
-      b Social Platform Affecting Real Connections
-
-      <!-- Demo(:demo="demo" name="patient") -->
-      <!-- User(role='patient' :user="patient" title='Patient' :globalSearch="userSearch" :fields="userFields") -->
-    div.col-md-4
-      <!-- navbar-right items listed from right to left ! -->
+    div.col-xs-2.info-logo
+      router-link(:to="{name: 'Sparc'}")
+        img(src='/static/images/venn.jpg' height='40px')
+    div.col-xs-6.info-left
+      b.input-lg SPARC &nbsp; &nbsp;
+    div.col-xs-4
       span.navbar-right
-        Popup(icon='bars') &nbsp; &nbsp; 
-
-        <!-- Demo(:demo="demo" name='staff') -->
-        <!-- User(role='staff' :user="staff" title='staff' include='staff' :globalSearch="staffSearch" :search="addStaff") -->
+        table
+          tr
+            td
+              LoginButton(:payload='payload')
+            td  
+              SearchButton()
 </template>
 
 <script>
   import User from '@/components/User'
   import Demo from '@/components/ovid/Demo'
-  import Popup from '@/components/Standard/Popup'
+  // import LoginPopup from '@/components/Standard/LoginPopup'
+  import LoginButton from '@/components/Standard/LoginButton'
+  import SearchButton from '@/components/Standard/SearchButton'
 
   import 'vue-awesome/icons/home'
   import 'vue-awesome/icons/bars'
@@ -38,7 +37,8 @@
     components: {
       User,
       Demo,
-      Popup
+      LoginButton,
+      SearchButton
     },
     props: {
       searchOpen: {
@@ -55,9 +55,20 @@
       },
       demo: {
         type: Boolean
-      },
-      payload: {
-        type: Object
+      }
+    },
+    computed: {
+      payload: function () {
+        var payload = this.$store.getters.payload || null
+        if (payload && payload.constructor === Object) {
+          console.log('payload: ' + payload)
+          return payload
+        } else if (payload && payload.constructor === String) {
+          console.log('payload: ' + payload)
+          return JSON.parse(payload)
+        } else {
+          return { access: 'public' }
+        }
       }
     },
     methods: {
@@ -108,8 +119,8 @@
 .info-header {
   padding: 10px;
   height: 60px;
-  color: white;
-  background-color: #3a3;
+  color: #666;
+  background-color: white;
 }
 .info-logo {
   text-align: left;
