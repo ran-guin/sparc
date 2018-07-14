@@ -36,7 +36,7 @@ export default {
     },
     right: {
       type: String,
-      default: "<a href='mailto:subir_guin@hotmail.ca?Subject=T4U%20website%20Contact' style='color:white'>Contact Us</a>"
+      default: "<a href='mailto:subir_guin@hotmail.ca?Subject=T4U%20website%20Contact'>Contact Us</a>"
     },
     centre: {
       type: String
@@ -49,12 +49,12 @@ export default {
 <style scoped>
 
   .publicFooter {
-    color: white;
-    background-color: #3a3;
+    color: grey ;
+    background-color: white;
   }
 
   publicFooter span a {
-    color: white;
+    color: grey;
   }
 
   img.logo-s {
@@ -64,7 +64,7 @@ export default {
   }
 
   a {
-    color: white;
+    color: black;
   }
  /* publicFooter span a:hover {
     color: red;
