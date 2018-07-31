@@ -17,23 +17,23 @@
 
       div.onPage
         p &nbsp;
-        Interests(v-if="show==='Interests'" :list='interests')
-        Events(v-if="show==='Events'" :list='events')
-        Host(v-if="show==='Host'" :list='interests')
+        <!-- Interests(v-if="show==='Interests'" :list='interests') -->
+        <!-- Events(v-if="show==='Events'" :list='events') -->
+        <!-- Host(v-if="show==='Host'" :list='interests') -->
 
-        About(v-if="show=='About'")
-        Ideas(v-if="show==='Ideas'")
+        <!-- About(v-if="show=='About'") -->
+        <!-- Ideas(v-if="show==='Ideas'") -->
         p &nbsp;
 
     PublicFooter.footer
 </template>
 
 <script>
-import Interests from './Interests'
-import Events from './Events'
-import Ideas from './Ideas'
-import About from './About'
-import Host from './Host'
+// import Interests from './Interests'
+// import Events from './Events'
+// import Ideas from './Ideas'
+// import About from './About'
+// import Host from './Host'
 
 import Modal from './../Standard/Modal'
 
@@ -52,11 +52,11 @@ import 'vue-awesome/icons/question-circle'
 export default {
   name: 'ovid',
   components: {
-    Interests,
-    Events,
-    Ideas,
-    About,
-    Host,
+    // Interests,
+    // Events,
+    // Ideas,
+    // About,
+    // Host,
     Modal,
     PrivateHeader,
     PublicFooter
@@ -85,32 +85,32 @@ export default {
 
     var _this = this
     axios.get(this.interestURL)
-    .then(function (result, err) {
-      if (err) {
-        console.log('set error...')
-        _this.$store.commit('setError', {context: 'Searching For ' + _this.scope, err: err})
-        console.log('axios error: ' + err)
-      } else {
-        _this.interests = result.data
+      .then(function (result, err) {
+        if (err) {
+          console.log('set error...')
+          _this.$store.commit('setError', {context: 'Searching For ' + _this.scope, err: err})
+          console.log('axios error: ' + err)
+        } else {
+          _this.interests = result.data
 
-        console.log('axios returned value(s): ' + JSON.stringify(_this.interests))
-        _this.$store.commit('setHash', {key: 'interests', value: _this.interests})
-      }
-    })
+          console.log('axios returned value(s): ' + JSON.stringify(_this.interests))
+          _this.$store.commit('setHash', {key: 'interests', value: _this.interests})
+        }
+      })
 
     console.log('retrieve skills...')
     axios.get(this.skillURL)
-    .then(function (result, err) {
-      if (err) {
-        console.log('set error...')
-        _this.$store.commit('setError', {context: 'Searching For ' + _this.scope, err: err})
-        console.log('axios error: ' + err)
-      } else {
-        _this.skills = result.data
-        _this.$store.commit('setHash', {key: 'skills', value: result.data})
-        console.log('axios returned value(s): ' + JSON.stringify(result.data))
-      }
-    })
+      .then(function (result, err) {
+        if (err) {
+          console.log('set error...')
+          _this.$store.commit('setError', {context: 'Searching For ' + _this.scope, err: err})
+          console.log('axios error: ' + err)
+        } else {
+          _this.skills = result.data
+          _this.$store.commit('setHash', {key: 'skills', value: result.data})
+          console.log('axios returned value(s): ' + JSON.stringify(result.data))
+        }
+      })
   },
   computed: {
     storedInterests: function () {
