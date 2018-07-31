@@ -3,18 +3,17 @@
       div.container
         h3 How it Works:
         div.col-md-6
-          u 
+          u
             h4 Participate
           ul
             li(v-for='step in setup')
               i {{step}}
         div.col-md-6
-          u 
+          u
             h4 Host
           ul
             li(v-for='step in hosting')
               i {{step}}
-        
 </template>
 
 <script>

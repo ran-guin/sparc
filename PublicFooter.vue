@@ -5,22 +5,21 @@
       a(href='/')
         span.acronym
           b &nbsp; C
-          span ommunity 
+          span ommunity
           b &nbsp; O
           span riented
           b &nbsp; S
           span oftware
           b &nbsp; I
-          span nnovation 
+          span nnovation
           b &nbsp; N
           span etwork
       span &nbsp; &nbsp;
-      span &nbsp; &nbsp; 
+      span &nbsp; &nbsp;
 
       span.navbar-centre(v-html="centre")
       div.navbar-right(v-html="right")
 </template>
-
 
 <script>
 export default {

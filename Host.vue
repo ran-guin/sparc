@@ -9,7 +9,7 @@
         RecursiveList(:list='aliases' :options='options' :onPick='pickMe')
         hr
         u Secondary Interest
-        RecursiveList(:list='aliases' :options='options')        
+        RecursiveList(:list='aliases' :options='options')
       div.col-md-4
         u Advanced Options
         DBForm(:options='hostFilter')

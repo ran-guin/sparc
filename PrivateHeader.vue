@@ -10,16 +10,15 @@
         table
           tr
             td
-              LoginButton(:payload='payload')
-            td  
+              <!-- LoginButton(:payload='payload') -->
+            td
               SearchButton()
 </template>
 
 <script>
   import User from '@/components/User'
-  import Demo from '@/components/ovid/Demo'
   // import LoginPopup from '@/components/Standard/LoginPopup'
-  import LoginButton from '@/components/Standard/LoginButton'
+  // import LoginButton from '@/components/Standard/LoginButton'
   import SearchButton from '@/components/Standard/SearchButton'
 
   import 'vue-awesome/icons/home'
@@ -36,8 +35,7 @@
     },
     components: {
       User,
-      Demo,
-      LoginButton,
+      // LoginButton,
       SearchButton
     },
     props: {

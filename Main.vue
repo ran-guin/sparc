@@ -7,7 +7,7 @@
       hr
       div.container
         span(v-for='page in pages')
-          button.btn.btn-lg.button-primary(@click.prevent="showPage(page)" v-bind:class="[{onPage: show==page}, {offPage: show!=page}]") 
+          button.btn.btn-lg.button-primary(@click.prevent="showPage(page)" v-bind:class="[{onPage: show==page}, {offPage: show!=page}]")
             b {{page}}
           span &nbsp; &nbsp;
         <!-- button.btn.btn-lg.button-primary(@click.prevent="showPage('interests')")  -->
@@ -44,10 +44,9 @@ import axios from 'axios'
 import config from './config.js'
 
 import 'vue-awesome/icons/check-circle'
-import 'vue-awesome/icons/warning'
 import 'vue-awesome/icons/home'
 import 'vue-awesome/icons/edit'
-import 'vue-awesome/icons/close'
+import 'vue-awesome/icons/times'
 import 'vue-awesome/icons/question-circle'
 
 export default {
@@ -168,7 +167,6 @@ export default {
   .body {
     height: auto;
   }
-  
   .pageWrapper {
     margin: 0px;
   }

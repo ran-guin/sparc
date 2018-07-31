@@ -1,5 +1,5 @@
 <!--       button.btn.btn-default(v-if='login')
-        router-link(:to="{name: 'Login'}") Log In 
+        router-link(:to="{name: 'Login'}") Log In
  -->
 <template lang='pug'>
   div
@@ -14,7 +14,6 @@
         span(v-if='right' v-html="right")
         span &nbsp; &nbsp;
  </template>
-
 
 <script>
 export default {
