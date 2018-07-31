@@ -10,30 +10,30 @@
           button.btn.btn-lg.button-primary(@click.prevent="showPage(page)" v-bind:class="[{onPage: show==page}, {offPage: show!=page}]")
             b {{page}}
           span &nbsp; &nbsp;
-        <!-- button.btn.btn-lg.button-primary(@click.prevent="showPage('interests')")  -->
+        <!-- button.btn.btn-lg.button-primary(@click.prevent="showPage('interests')") -->
           <!-- b Interests -->
         span &nbsp; &nbsp;
         p &nbsp;
 
       div.onPage
         p &nbsp;
-        <!-- Interests(v-if="show==='Interests'" :list='interests') -->
-        <!-- Events(v-if="show==='Events'" :list='events') -->
-        <!-- Host(v-if="show==='Host'" :list='interests') -->
+        Interests(v-if="show==='Interests'" :list='interests')
+        Events(v-if="show==='Events'" :list='events')
+        Host(v-if="show==='Host'" :list='interests')
 
-        <!-- About(v-if="show=='About'") -->
-        <!-- Ideas(v-if="show==='Ideas'") -->
+        About(v-if="show=='About'")
+        Ideas(v-if="show==='Ideas'")
         p &nbsp;
 
     PublicFooter.footer
 </template>
 
 <script>
-// import Interests from './Interests'
-// import Events from './Events'
-// import Ideas from './Ideas'
-// import About from './About'
-// import Host from './Host'
+import Interests from './Interests'
+import Events from './Events'
+import Ideas from './Ideas'
+import About from './About'
+import Host from './Host'
 
 import Modal from './../Standard/Modal'
 
@@ -52,14 +52,14 @@ import 'vue-awesome/icons/question-circle'
 export default {
   name: 'ovid',
   components: {
-    // Interests,
-    // Events,
-    // Ideas,
-    // About,
-    // Host,
-    Modal,
+    Interests,
+    Events,
+    Ideas,
+    About,
+    Host,
     PrivateHeader,
-    PublicFooter
+    PublicFooter,
+    Modal
   },
   data () {
     return {
