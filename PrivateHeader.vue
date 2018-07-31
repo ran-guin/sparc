@@ -9,8 +9,10 @@
       span.navbar-right
         table
           tr
-            td
-              <!-- LoginButton(:payload='payload') -->
+            td(v-if="staff")
+              b staff
+            td(v-else)
+              LoginButton(:payload='payload')
             td
               SearchButton()
 </template>
@@ -18,7 +20,7 @@
 <script>
 import User from '@/components/User'
 // import LoginPopup from '@/components/Standard/LoginPopup'
-// import LoginButton from '@/components/Standard/LoginButton'
+import LoginButton from '@/components/Standard/LoginButton'
 import SearchButton from '@/components/Standard/SearchButton'
 
 import 'vue-awesome/icons/home'
@@ -35,7 +37,7 @@ export default {
   },
   components: {
     User,
-    // LoginButton,
+    LoginButton,
     SearchButton
   },
   props: {
@@ -47,15 +49,20 @@ export default {
       type: Object,
       default () { return {} }
     },
-    staff: {
-      type: Object,
-      default () { return {} }
-    },
+    // staff: {
+    //   type: Object,
+    //   default () { return {} }
+    // },
     demo: {
       type: Boolean
     }
   },
   computed: {
+    staff: function () {
+      if (this.payload && this.payload.username) {
+        return this.payload.username
+      } else { return null }
+    },
     payload: function () {
       var payload = this.$store.getters.payload || null
       if (payload && payload.constructor === Object) {
