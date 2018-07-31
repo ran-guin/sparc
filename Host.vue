@@ -38,8 +38,15 @@ export default {
         access: 'append',
         fields: config.forms.event_filters
       },
-      test: config.forms.event_filters
+      test: config.forms.event_filters,
+      status: 'setup'
     }
+  },
+  created () {
+    this.status = 'loading...'
+  },
+  mounted () {
+    this.status = 'mounted...'
   },
   props: {
     list: { type: Array }
