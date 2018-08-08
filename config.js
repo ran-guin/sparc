@@ -2,36 +2,32 @@ export default {
   setup: [
     'Register as a member (free)',
     'Indicate interests and the types of activities you like to do',
-    'Indicate experience / skill level if applicable',
     'Find current event postings or just sit back and await invitations'
   ],
   hosting: [
     'Ensure you are a validated member (all hosts must have their identity and contact information validated)',
-    'Create an event and pick one or more primary activities that define your event',
-    'Optionally specify secondary interests to target members with similar passions',
-    'Indicate minimum and/or maximum attendance numbers along with a signup deadline',
-    'Optionally specify advanced options for your event (eg gender balanced, selection by lottery etc)',
-    'Submit your event (this will save your event and tell you how many invitations will be sent out',
-    'Adapt filtering criteria if desired to raise or lower invitation numbers',
+    'Create an event - with many options to help target members with similar passions',
+    'Save your event (this will tell you how many invitations will be sent out, so you can change the filtering options above if desired to raise or lower the invitation numbers)',
     'Publish Event (this will send out invitations to applicable members)',
-    'Confirm attendance prior to the event',
     'Have fun',
-    'Provide feedback on guest attendance and identity'
+    'Provide feedback to confirm guest attendance (and identity of newer members)'
   ],
 
   forms: {
     'event_filters': [
       {name: 'gender_balanced', type: "enum('No', 'Passive', 'Active')"},
       {name: 'signup_strategy', type: "enum('FCFS','Lottery')"},
-      {name: 'connectivity', type: "enum('connected','fof','fofof','dynamically connected','unconnected','minimize connections')"}
+      {name: 'connectivity', type: "enum('favourites','fof','fofof','unconnected')"}
     ],
     'event': [
       { name: 'Title', type: 'varchar' },
+      { name: 'Description', type: 'text' },
       { name: 'Start', type: 'date' },
       { name: 'End', type: 'date' },
-      { name: 'Deadline', type: 'date' },
-      { name: 'Min_number', type: 'number' },
-      { name: 'Max_number', type: 'number' },
+      { name: 'Location', type: 'text' },
+      { name: 'Signup Deadline', type: 'date' },
+      { name: 'Min_number', type: 'integer', default: 2 },
+      { name: 'Max_number', type: 'integer' },
       { name: 'Status', type: 'hidden', default: 'pending' }
     ]
   },
@@ -45,7 +41,7 @@ export default {
     {id: 7, 'name': 'trail', 'parent_id': 4, selected: true},
     {id: 8, 'name': '5k', 'parent_id': 4, selected: true, skill_level: '20 min'},
     {id: 9, 'name': '10k', 'parent_id': 4},
-    {id: 10, 'name': 'marathon', 'parent_id': 4, selected: true},
+    {id: 10, 'name': 'marathon', 'parent_id': 4, selected: true, skill_level: '?'},
     {id: 11, 'name': 'touring', 'parent_id': 5, selected: true},
     {id: 12, 'name': 'road', 'parent_id': 5, selected: true},
     {id: 13, 'name': 'mountain', 'parent_id': 5, selected: true},
@@ -88,55 +84,74 @@ export default {
     'participants do not need to join a distinct group for each of their interests',
     'advanced filtering enables higher compatibility among participants',
     'events can include filtering for experience level to enable more compatible skill levels',
-    'multi-level user verification process improves accountability of members for greater comfort level'
+    'facilitates communication with community regarding arts events giving them greater exposure',
+    'service fees (including built in ticketing system) are capped at 0-5% ensuring almost all money raised goes to hosting members',
+    'collaborations with local restaurants & cafes provide mutual benefit',
+    'multi-level user verification process improves accountability of members for greater comfort level',
+    'invitation-based members and various identify verification systems reduce abuse and increase quality of members (non-members can also attend public events)'
   ],
-  demo_hostIdeas: [
+  host_ideas: [
     {
       name: 'Host a dinner party (and get paid)',
-      example: 'Invite only Spanish-speaking people who enjoy political discussions',
-      description: 'Like cooking or hosting?  Host dinner parties and get paid for your effort and have a great time in the meantime.  These can also be combined with other social gathering ideas (potlucks, conversational topics, theme parties, boardgames etc)'
+      example: 'Invite only Spanish-speaking people who enjoy political discussions and dinner parties',
+      description: 'Like cooking or hosting dinner parties?  Cook up a multi-course feast and get paid for your effort and have a great time in the meantime.  These can also be combined with other social gathering ideas (potlucks, conversational topics, theme parties, boardgames etc)'
+    },
+    {
+      name: 'Organize a flash mob!',
+      example: 'Target local members who can dance and who are open to spontaneity',
+      description: 'Easily connects people who are interested in the type of event you would like to organize, and facilitates an easy communication thread to organize the event'
     },
     {
       name: 'Teach a yoga class',
       example: 'Optionally target people who like a particular type of yoga and/or those at a specified level',
-      description: 'Organize a small yoga class.  Classes may have fixed cost or be by donation'
+      description: 'Organize a small yoga class in your spare time.  Classes may have fixed cost or be by donation'
     },
     {
       name: 'Plan an outing to a play',
-      example: 'Find strangers who share similar interests who also happen to enjoy plays',
-      description: 'If you are new in town, or your friends are not interested in the same cultural events that you are, this encourages you to go out and experience cultural events in the city with a group of like-minded people -  whether you are looking for a date or want to organize a large group to attend a show.'
+      example: 'Find strangers who also like plays and optionally share other similar interests',
+      description: 'Meet new people who share multiple common interests in a group environment'
     },
     {
       name: 'Organize a hike',
       example: 'Invite only inexperienced hikers who enjoy photography to do a casual photo walk',
-      description: 'Organize short or long hiking trips.  These can also be easily combined with interest filtering so that you find hiking partners that have some similar interests'
+      description: 'Find like-minded people of similar experience level to take part in activities you enjoy'
     },
     {
-      name: 'Put together a karaoke night',
-      example: 'Organize a karaoke evening for 8 people who are in grad school',
-      description: 'Host almost any social activity you can think of and filter to attract like-minded people'
+      name: 'Put on a live theatre production in the woods',
+      example: 'generate targetted invites to members with esoteric interests',
+      description: 'Get free exposure and connect with an expanding tribe of people with common esoteric interests'
+    },
+    {
+      name: 'Support local restaurants & cafes',
+      example: 'host events at collaborating restaurants for discounts',
+      description: 'Mutual monetary benefit goes almost entirely to participants and collaborating shops which benefit from exposure and increased clientelle'
     }
   ],
-  demo_ideas: [
+  member_ideas: [
     {
-      name: 'Eat out with like-minded people',
+      name: 'Meet like-minded people',
       example: 'You can choose to only get invites from people you know or with similar interests',
-      description: 'Join other members for dinner'
+      description: 'Keep on top of events you are interested in that your friends (or friends of friends) are attending'
     },
     {
-      name: 'Go see a show',
+      name: 'Avoid having to go out alone',
       example: 'Find people with multiple shared interests',
-      description: 'If you are new in town, find others going to a movie or concert that have some similar interests'
+      description: 'If you are new in town, get out and meet other people going to a movie, concert, or dinner that have some similar interests'
     },
     {
-      name: 'Go for a hike',
+      name: 'Exercise your mind and body at the same time',
       example: 'Organize a small local hike for up to 6 people who want to practice their Spanish, and speak at an intermediate level',
-      description: 'Join others for a local hike'
+      description: 'Meet activity partners that you connect with on multiple levels'
     },
     {
       name: 'Meet other singles',
       example: 'Any of the above ideas can be targetted to singles (either loosely or strictly)',
-      description: 'Find events that are targetted to like-minded singles.  Only get invites for the types of events you enjoy'
+      description: 'Find events that are targetted to like-minded singles, but meet them in an unpressured environment, knowing that attendees have simply indicated that they are open to attending singles events.  You can even specify a required connectivity level so that you will only get invites if someone you know is already going'
+    },
+    {
+      name: 'Get out and connect with others for community support',
+      example: 'Connect with volunteers, counselors, or other people going through similar issues',
+      description: 'Attend sessions for new moms, others going through grieving or depression'
     }
   ],
   demo_filter: [
