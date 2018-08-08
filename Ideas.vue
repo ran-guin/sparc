@@ -1,27 +1,32 @@
 <template lang='pug'>
   div.container
-    u How is this different?
-    ul
-      li(v-for='diff in differences')
-        i {{diff}}
-    div.col-md-6
+    div.col-md-4
+      h3 What is new?
+      ul
+        li(v-for='diff in differences')
+          i {{diff}}
+    div.col-md-4
       h3 Ideas for Hosting
       ul
         li(v-for='idea in hostList')
-          h4 {{idea.name}}
-            i.idea(v-if='idea.interests') &nbsp; &nbsp; [{{idea.interests}}]
+          u.idea(v-if='idea.name') {{idea.name}}
           span(v-if='idea.description')
             p
-              i {{idea.description}}
-    div.col-md-6
+              b {{idea.description}}
+          span(v-if='idea.example')
+            p
+              i eg: {{idea.example}}
+    div.col-md-4
       h3 Participate
       ul
         li(v-for='idea in list')
-          h4 {{idea.name}}
-            i.idea(v-if='idea.interests') &nbsp; &nbsp; [{{idea.interests}}]
+          u.idea(v-if='idea.name') {{idea.name}}
           span(v-if='idea.description')
             p
-              i {{idea.description}}
+              b {{idea.description}}
+          span(v-if='idea.example')
+            p
+              i eg: {{idea.example}}
 
 </template>
 
@@ -38,8 +43,8 @@ export default {
       options: {
         type: Object
       },
-      list: config.demo_ideas,
-      hostList: config.demo_hostIdeas,
+      list: config.member_ideas,
+      hostList: config.host_ideas,
       differences: config.demo_differences
     }
   },
@@ -61,7 +66,7 @@ export default {
 <style>
 
 .idea {
-  background-color: blue;
+  font-weight: bold;
 }
 .description {
   color: red;
