@@ -18,7 +18,7 @@ export default {
       options: {
         selectable: true,
         showSelect: this.definedSkill,
-        selectText: '(adjust)'
+        selectText: '- [experience level]'
       }
     }
   },
