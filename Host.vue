@@ -1,18 +1,18 @@
 <template lang='pug'>
     div.container
-      h5 Host Event
       div.col-md-4
-        u Basics
+        h3 Host Event
         DBForm(:options='hostFields')
       div.col-md-4
-        u Primary Activity
-        RecursiveList(:list='aliases' :options='options' :onPick='pickMe')
+        h3 Primary Activity
+        RecursiveList(:list='aliases' :options='primaryOptions' :onPick='pickMe' :secondaryPick='skillPick')
         hr
-        u Secondary Interest
-        RecursiveList(:list='aliases' :options='options')
+        h3 Secondary Interest(s)
+        RecursiveList(:list='aliases' :options='secondaryOptions' :secondaryPick='skillPick')
       div.col-md-4
-        u Advanced Options
+        h3 Advanced Options
         DBForm(:options='hostFilter')
+      button.btn.btn-primary.form-control(v-on:click='saveEvent()') Save Event
 </template>
 
 <script>
@@ -29,7 +29,8 @@ export default {
   },
   data () {
     return {
-      options: { selectOne: true, clear: true },
+      primaryOptions: { selectOne: true, clear: true, modalID: 'eventModal' },
+      secondaryOptions: { selectable: true, clear: true, modalID: 'eventModal' },
       hostFields: {
         access: 'append',
         fields: config.forms.event
@@ -39,7 +40,12 @@ export default {
         fields: config.forms.event_filters
       },
       test: config.forms.event_filters,
-      status: 'setup'
+      status: 'setup',
+      skillPick: {
+        show: this.definedSkill,
+        selectText: '[filter on experience]',
+        onPick: this.eventModal
+      }
     }
   },
   created () {
@@ -72,10 +78,26 @@ export default {
       console.log('retrieve more schedule info from record: ' + JSON.stringify(record))
 
       this.$store.dispatch('setModalData', record)
-      this.$store.dispatch('toggleModal', 'info-modal')
+      this.$store.dispatch('toggleModal', 'eventModal')
     },
     pickMe: function (record) {
       console.log('pick ' + JSON.stringify(record))
+    },
+    saveEvent: function () {
+      console.log('save event')
+    },
+
+    definedSkill: function (record) {
+      if (record.skill_level) {
+        return true
+      } else {
+        return false
+      }
+    },
+    eventModal: function (record) {
+      console.log('update skill info for ' + JSON.stringify(record))
+      this.$store.dispatch('setModalData', record)
+      this.$store.dispatch('toggleModal', 'eventModal')
     }
   }
 }
