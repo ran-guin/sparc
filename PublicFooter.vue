@@ -47,25 +47,9 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
-  .publicFooter {
-    color: grey ;
-    background-color: white;
-  }
-
-  publicFooter span a {
-    color: grey;
-  }
-
   img.logo-s {
     max-height: 70px;
     margin-top: -15px;
     padding-right: 50px;
   }
-
-  a {
-    color: black;
-  }
- /* publicFooter span a:hover {
-    color: red;
-  }*/
 </style>
