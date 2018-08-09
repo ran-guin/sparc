@@ -1,18 +1,20 @@
 <template lang='pug'>
     div.container
+      // b F: {{JSON.stringify(forms)}}"
       div.col-md-4
-        h3 Host Event
-        DBForm(:options='hostFields')
+        h3(v-if='forms.host && forms.host.Title') {{forms.host.Title}}
+        h3(v-else) Create Event
+        DBForm(:options='hostFields' title: 'Host Event' :onSave='saveEvent')
       div.col-md-4
         h3 Primary Activity
-        RecursiveList(:list='aliases' :options='primaryOptions' :onPick='pickMe' :secondaryPick='skillPick')
+        RecursiveList(:list='aliases' :options='primaryOptions' :onPick='pickMe' :secondaryPick='skillPick' :onSave='savePrimary')
         hr
         h3 Secondary Interest(s)
-        RecursiveList(:list='aliases' :options='secondaryOptions' :secondaryPick='skillPick')
+        RecursiveList(:list='aliases' :options='secondaryOptions' :secondaryPick='skillPick' :onSave="saveSecondary")
       div.col-md-4
         h3 Advanced Options
         DBForm(:options='hostFilter')
-      button.btn.btn-primary.form-control(v-on:click='saveEvent()') Save Event
+      // button.btn.btn-primary.form-control(v-on:click='saveEvent()') Save Event
 </template>
 
 <script>
@@ -43,9 +45,10 @@ export default {
       status: 'setup',
       skillPick: {
         show: this.definedSkill,
-        selectText: '[filter on experience]',
+        selectText: '[skill]',
         onPick: this.eventModal
-      }
+      },
+      forms: {}
     }
   },
   created () {
@@ -83,8 +86,17 @@ export default {
     pickMe: function (record) {
       console.log('pick ' + JSON.stringify(record))
     },
-    saveEvent: function () {
-      console.log('save event')
+    saveEvent: function (form) {
+      console.log('copy form ' + JSON.stringify(form))
+      this.$set(this.forms, 'host', form)
+    },
+    savePrimary: function (form) {
+      console.log('copy primary form ' + JSON.stringify(form))
+      this.$set(this.forms, 'primary', form)
+    },
+    saveSecondary: function (form) {
+      console.log(' copy secondary form ' + JSON.stringify(form))
+      this.$set(this.forms, 'secondary', form)
     },
 
     definedSkill: function (record) {
