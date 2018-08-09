@@ -2,7 +2,7 @@
   div.info-header
     div.col-xs-2.info-logo
       router-link(:to="{name: 'Sparc'}")
-        img(src='@/assets/venn.gif' height='100px')
+        img(src='/static/images/venn.gif' height='100px')
     div.col-xs-6.info-left
       b SPARC &nbsp; &nbsp;
       h4 Social Platform Affecting Real Connections
@@ -13,7 +13,8 @@
             td(v-if="staff")
               b staff
             td(v-else)
-              LoginButton(:payload='payload')
+              h4
+                LoginButton(:payload='payload')
             td
               SearchButton()
 </template>
