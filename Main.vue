@@ -3,8 +3,6 @@
     PrivateHeader.header
     div.body
       div.container
-        h4 Social Platform Affecting Real Connections
-      hr
       div.container
         span(v-for='page in pages')
           button.btn.btn-lg.button-primary(@click.prevent="showPage(page)" v-bind:class="[{onPage: show==page}, {offPage: show!=page}]")
@@ -18,7 +16,7 @@
       div
         p &nbsp;
         Interests(v-if="show==='Interests'" :list='interests')
-        Events(v-if="show==='Events'" :list='events')
+        Events(v-if="show==='Events'" :list='events' :invites='invites')
         Host(v-if="show==='Host'" :list='interests')
 
         About(v-if="show=='About'")
@@ -43,6 +41,7 @@ import PublicFooter from './PublicFooter.vue'
 import axios from 'axios'
 import config from './config.js'
 
+import 'vue-awesome/icons/exclamation-triangle'
 import 'vue-awesome/icons/check-circle'
 import 'vue-awesome/icons/home'
 import 'vue-awesome/icons/edit'
@@ -71,6 +70,7 @@ export default {
       interests: config.demo_interests,
       skills: config.demo_skills,
       events: config.demo_events,
+      invites: config.demo_invites,
       openInterests: {'idnull': true, 'id0': true, 'id1': true},
       bc: 'green'
     }
