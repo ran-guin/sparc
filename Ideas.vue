@@ -1,11 +1,6 @@
 <template lang='pug'>
   div.container
-    div.col-md-4
-      h3 What is new?
-      ul
-        li(v-for='diff in differences')
-          i {{diff}}
-    div.col-md-4
+    div.col-md-6
       h3 Ideas for Hosting
       ul
         li(v-for='idea in hostList')
@@ -16,7 +11,7 @@
           span(v-if='idea.example')
             p
               i eg: {{idea.example}}
-    div.col-md-4
+    div.col-md-6
       h3 Participate
       ul
         li(v-for='idea in list')
@@ -45,7 +40,6 @@ export default {
       },
       list: config.member_ideas,
       hostList: config.host_ideas,
-      differences: config.demo_differences
     }
   },
   props: {
