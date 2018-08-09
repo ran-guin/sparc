@@ -75,6 +75,13 @@ export default {
     {id: 1, name: 'Potluck', description: 'description of potluck', location: 'Toronto, ON', interests: 'dinner parties, philosophy'},
     {id: 2, name: 'Dancing', description: 'description of dance', location: 'Vancouver', skills: 'Dancing: intermediate'}
   ],
+  demo_invites: [
+    {id: 5, name: 'Dinner Party', description: 'description of art gallery event', location: 'Toronto, ON', interests: 'dinner, travel, discussion'},
+    {id: 5, name: 'Bike Ride', description: 'description of art gallery event', location: 'Toronto, ON', interests: 'bike touring, travel'},
+    {id: 3, name: 'Art Gallery', description: 'description of art gallery event', location: 'Toronto, ON', interests: 'modern art, discussion'},
+    {id: 4, name: 'Flash Mob', description: 'description of dance', location: 'Vancouver', skills: 'Dancing: intermediate', interests: 'Spontaneity, Flash mobs'},
+    {id: 6, name: 'Singles book club', description: 'description of dance', location: 'Vancouver', interests: 'book club, dinner, single events'}
+  ],
   demo_differences: [
     'anyone can host events (once they are verified members)',
     'advance payment options can make it easier for hosts to estimate accurate attendance',
