@@ -2,9 +2,10 @@
   div.info-header
     div.col-xs-2.info-logo
       router-link(:to="{name: 'Sparc'}")
-        img(src='/static/images/venn.jpg' height='40px')
+        img(src='@/assets/venn.gif' height='100px')
     div.col-xs-6.info-left
-      b.input-lg SPARC &nbsp; &nbsp;
+      b SPARC &nbsp; &nbsp;
+      h4 Social Platform Affecting Real Connections
     div.col-xs-4
       span.navbar-right
         table
@@ -122,10 +123,10 @@ export default {
 <style scoped>
 
 .info-header {
-  padding: 10px;
-  height: 60px;
-  color: #666;
-  background-color: white;
+  // padding: 10px;
+  // height: 60px;
+  // color: #666;
+  // background-color: white;
 }
 .info-logo {
   text-align: left;
