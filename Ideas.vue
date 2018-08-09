@@ -39,7 +39,7 @@ export default {
         type: Object
       },
       list: config.member_ideas,
-      hostList: config.host_ideas,
+      hostList: config.host_ideas
     }
   },
   props: {
