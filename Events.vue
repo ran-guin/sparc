@@ -1,16 +1,31 @@
 <template lang='pug'>
   div.container
-    h5 Events
-    ul
-      li(v-for='event in list')
-        b {{event.name}} [{{event.location}}]
-          i.interests(v-if='event.interests') &nbsp; &nbsp; [{{event.interests}}]
-          span(v-if='event.skills')
-            i.skills &nbsp; &nbsp; {{event.skills}}
+    div.col-md-6
+      h2 Upcoming
+      ul
+        li(v-for='event in list')
+          b {{event.name}} [{{event.location}}]
+            i.interests(v-if='event.interests') &nbsp; &nbsp; [{{event.interests}}]
+            span(v-if='event.skills')
+              a(href='#' data-toggle='tooltip' :title='event.skills')
+                span &nbsp; &nbsp;
+                icon(name='exclamation-triangle')
+                <!-- i.skills &nbsp; &nbsp; {{event.skills}} -->
+    div.col-md-6
+      h2 Invitations
+      ul
+        li(v-for='event in invites')
+          b {{event.name}} [{{event.location}}]
+            i.interests(v-if='event.interests') &nbsp; &nbsp; [{{event.interests}}]
+            span(v-if='event.skills')
+              a(href='#' data-toggle='tooltip' :title='event.skills')
+                span &nbsp; &nbsp;
+                icon(name='exclamation-triangle' color='red')
 </template>
 
 <script>
 import Modal from './../Standard/Modal.vue'
+import 'vue-awesome/icons/exclamation-triangle'
 
 export default {
   components: {
@@ -24,7 +39,8 @@ export default {
     }
   },
   props: {
-    list: { type: Array }
+    list: { type: Array },
+    invites: { type: Array }
   },
   computed: {
   },
@@ -45,6 +61,6 @@ export default {
   color: blue;
 }
 .skills {
-  color: red;
+  color: orange;
 }
 </style>
