@@ -1,8 +1,9 @@
 <template lang='pug'>
   div.info-header
     div.col-xs-2.info-logo
-      router-link(:to="{name: 'Sparc'}")
-        img(src='/static/images/venn.gif' height='100px')
+      a(href='/sparc') 
+        img(src='/static/images/venn.gif' height='50px')
+      // router-link(:to="{name: 'Sparc'}")
     div.col-xs-6.info-left
       b SPARC &nbsp; &nbsp;
       h4 Social Platform Affecting Real Connections
@@ -12,13 +13,10 @@
           tr
             td(v-if="staff")
               b staff
-            td(v-else)
-              h4
-                LoginButton(:payload='payload')
             td
               SearchButton()
     div.col-xs-12(style='padding: 0px')
-      hr(style="height: 0px; border: none; border-bottom: solid grey 3px")
+      hr
 </template>
 
 <script>

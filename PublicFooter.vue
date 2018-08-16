@@ -1,6 +1,6 @@
 <template lang='pug'>
   div.publicFooter
-    div.container
+    div
       div.navbar-left(v-html="left")
       a(href='/')
         span.acronym
