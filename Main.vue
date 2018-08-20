@@ -7,8 +7,8 @@
         a(href='#' @click.prevent="showPage(page)" v-bind:class="[{onPage: show==page}, {offPage: show!=page}]")
           b {{page}}
     div.body(v-bind:class="[{body1: bigHeader}, {body2: !bigHeader}]")
-      h5 Status: {{status}}
       div
+        b Status: {{status}}
         p &nbsp;
         About(v-if="show=='About'")
         Interests(v-else-if="show==='Interests'" :list='interests')
@@ -229,7 +229,7 @@ $subheader2-height: 50px;
 .header {
   color: $header-colour;
   background-color: $header-background-colour;
-  padding: $default-padding;  
+  padding: $default-padding;
 }
 .header1 {
   height: $header-height;
@@ -245,7 +245,7 @@ $subheader2-height: 50px;
   background-color: $footer-background-colour;
   color: $footer-colour;
   padding: $default-padding;
-  width: 100%;  
+  width: 100%;
   padding-left: 40px;
   padding-right: 40px;
   padding-top: 15px;
@@ -289,7 +289,7 @@ a:hover {
 .body {
   background-color: $body-background-colour;
   color: $body-colour;
-  z-index: 10000;  
+  z-index: 10000;
 }
 .body1 {
   // padding-top: 5px; // $subheader-height;
@@ -346,7 +346,6 @@ img.bg {
     text-align: center;
     margin:0 auto;
 }
-
 
 .onPage {
   color: black;

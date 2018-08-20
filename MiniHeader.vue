@@ -1,7 +1,7 @@
 <template lang='pug'>
   div.info-header
     div.col-xs-2.info-logo
-      a(href='/sparc') 
+      a(href='/sparc')
         img(src='/static/images/venn.gif' height='50px')
       // router-link(:to="{name: 'Sparc'}")
     div.col-xs-6.info-left
