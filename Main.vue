@@ -3,7 +3,7 @@
     PrivateHeader.header
     div.body
       div.container
-      div.container
+        h2 Status: {{status}}
         span(v-for='page in pages')
           button.btn.btn-lg.button-primary(@click.prevent="showPage(page)" v-bind:class="[{onPage: show==page}, {offPage: show!=page}]")
             b {{page}}
@@ -67,12 +67,15 @@ export default {
       onPage: 'Events',
       skillURL: config.skillMirrorUrl,
       interestURL: config.interestMirrorUrl,
+
       interests: config.demo_interests,
       skills: config.demo_skills,
       events: config.demo_events,
       invites: config.demo_invites,
+
       openInterests: {'idnull': true, 'id0': true, 'id1': true},
-      bc: 'green'
+      bc: 'green',
+      status: 'init'
     }
   },
   props: {
@@ -83,14 +86,33 @@ export default {
     console.log('retrieve interests...')
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
+    var URL = config.apiURL
+    var urlHeader = config.apiHeader
+    // axios(URL, { method: 'GET', headers: urlHeader })
+    //   .then(function (result, err) {
+    //     if (err) {
+    //       console.log('test error...')
+    //       console.log('axios error: ' + err)
+    //       _this.status = 'test error'
+    //     } else {
+    //       _this.status = 'test passed'
+    //       console.log('test returned value(s): ' + JSON.stringify(result.data))
+    //     }
+    //   })
+
+    this.status = 'loading...'
+    console.log('retrieve interests via axios from ' + URL)
+
     var _this = this
-    axios.get(this.interestURL)
+    axios(URL + '/interests', {method: 'GET', headers: urlHeader})
       .then(function (result, err) {
         if (err) {
-          console.log('set error...')
+          _this.status = 'nexterr'
+          console.log('set axios error...')
           _this.$store.commit('setError', {context: 'Searching For ' + _this.scope, err: err})
           console.log('axios error: ' + err)
         } else {
+          _this.status += 'loaded interests...'
           _this.interests = result.data
 
           console.log('axios returned value(s): ' + JSON.stringify(_this.interests))
@@ -98,14 +120,15 @@ export default {
         }
       })
 
-    console.log('retrieve skills...')
-    axios.get(this.skillURL)
+    console.log('retrieve skills via axios from ' + URL)
+    axios(URL + '/skills', {method: 'GET', headers: urlHeader})
       .then(function (result, err) {
         if (err) {
-          console.log('set error...')
+          console.log('set axios error...')
           _this.$store.commit('setError', {context: 'Searching For ' + _this.scope, err: err})
           console.log('axios error: ' + err)
         } else {
+          _this.status += 'loaded skills...'
           _this.skills = result.data
           _this.$store.commit('setHash', {key: 'skills', value: result.data})
           console.log('axios returned value(s): ' + JSON.stringify(result.data))
