@@ -1,4 +1,7 @@
 export default {
+  apiURL: 'http://localhost:3333',
+  apiHeader: {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
+
   setup: [
     'Register as a member (free)',
     'Indicate interests and the types of activities you like to do',
