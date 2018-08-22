@@ -1,38 +1,34 @@
 <template lang='pug'>
   div.container
-    div.col-md-6
-      h2 Upcoming
+    span(v-for='page in pages' style='padding-left: 50px')
+      a(href='#' @click.prevent="show=page" v-bind:class="[{onPage: show===page}, {offPage: show!==page}]")
+        b.submenu {{page}}
+    hr.eventHR
+    div(v-if="show === 'Upcoming'")  
       ul
         li(v-for='event in list')
-          b {{event.name}} [{{event.location}}]
-            i.interests(v-if='event.interests') &nbsp; &nbsp; [{{event.interests}}]
-            span(v-if='event.skills')
-              a(href='#' data-toggle='tooltip' :title='event.skills')
-                span &nbsp; &nbsp;
-                icon(name='exclamation-triangle')
-                <!-- i.skills &nbsp; &nbsp; {{event.skills}} -->
-    div.col-md-6
-      h2 Invitations
+          Event(:event='event' :modal='eventModal')
+    div(v-else-if="show === 'Invitations'")  
       ul
         li(v-for='event in invites')
-          b {{event.name}} [{{event.location}}]
-            i.interests(v-if='event.interests') &nbsp; &nbsp; [{{event.interests}}]
-            span(v-if='event.skills')
-              a(href='#' data-toggle='tooltip' :title='event.skills')
-                span &nbsp; &nbsp;
-                icon(name='exclamation-triangle' color='red')
+          Event(:event='event' :modal='eventModal')
+    div(v-else)
+      h3 ... Search
 </template>
 
 <script>
+import Event from './Event.vue'
 import Modal from './../Standard/Modal.vue'
-import 'vue-awesome/icons/exclamation-triangle'
 
 export default {
   components: {
+    Event,
     Modal
   },
   data () {
     return {
+      pages: ['Upcoming', 'Invitations', 'Search'],
+      show: 'Upcoming',
       options: {
         type: Object
       }
@@ -57,6 +53,12 @@ export default {
 
 <style>
 
+.eventHR {
+  border-top: 1px solid;
+}
+.eventOption {
+  font-size: 20px;
+}
 .interests {
   color: blue;
 }
