@@ -1,19 +1,29 @@
 <template lang='pug'>
     div.about
       div.container
-        div.col-md-6
-          h3 How it Works:
+        span(v-for='page in pages' style='padding-left: 50px')
+          a(href='#' @click.prevent="show=page" v-bind:class="[{onPage: show===page}, {offPage: show!==page}]")
+            b.submenu {{page}}
+        p &nbsp;
+        div(v-show="show === 'SPARC'")
           u
-            h4 Participate
+            h3 What is it ?
+          ul
+            li(v-for='step in overview')
+              i {{step}}        
+        div(v-show="show === 'Getting Started'")
+          u
+            h3 Participate
           ul
             li(v-for='step in setup')
               i {{step}}
+        div(v-show="show === 'Hosting'")  
           u
-            h4 Host
+            h3 Host
           ul
             li(v-for='step in hosting')
               i {{step}}
-        div.col-md-6
+        div(v-show="show === 'Features'")
           h3 How is it different?
           ul
             li(v-for='diff in differences')
@@ -28,6 +38,9 @@ export default {
   },
   data () {
     return {
+      show: 'SPARC',
+      pages: ['SPARC', 'Getting Started', 'Hosting', 'Features'],
+      overview: config.overview,
       setup: config.setup,
       hosting: config.hosting,
       differences: config.demo_differences
