@@ -4,7 +4,7 @@
         h2 Connecting Communities One Event at a Time...
         hr
       div.col-md-4
-        h3 Alone ?
+        h3 Looking for your Tribe ?
         img.welcome-slides(src='/static/images/alone.jpg')
       div.col-md-4
         h3 Find / Host Events
