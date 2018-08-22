@@ -5,7 +5,7 @@
     div.subheader(v-bind:class="[{subheader1: bigHeader}, {subheader2: !bigHeader}]")
       span(v-for='page in pages' style='padding-left: 50px')
         a(href='#' @click.prevent="showPage(page)" v-bind:class="[{onPage: show==page}, {offPage: show!=page}]")
-          b {{page}}
+          b.menuItem {{page}}
     div.body(v-bind:class="[{body1: bigHeader}, {body2: !bigHeader}]")
       div
         b Status: {{status}}
@@ -289,6 +289,7 @@ a:hover {
 .body {
   background-color: $body-background-colour;
   color: $body-colour;
+  font-size: 18px !important;
   z-index: 10000;
 }
 .body1 {
@@ -349,6 +350,7 @@ img.bg {
 
 .onPage {
   color: black;
+  font-weight: bold;
   // background-color: grey !important;
 }
 .onPage:hover {
@@ -363,4 +365,13 @@ img.bg {
   // background-color: darkgrey !important;
   color: black;
 }
+
+.menuItem {
+  font-size: 20px;
+}
+
+.submenu {
+  font-size: 30px;
+}
+
 </style>
