@@ -1,7 +1,11 @@
 <template lang='pug'>
   div.container
-    div.col-md-6
-      h3 Ideas for Hosting
+    span(v-for='page in pages' style='padding-left: 50px')
+      a(href='#' @click.prevent="show=page" v-bind:class="[{onPage: show===page}, {offPage: show!==page}]")
+        b.submenu {{page}}
+
+    div(v-if="show === 'Hosting'")     
+      p &nbsp;
       ul
         li(v-for='idea in hostList')
           u.idea(v-if='idea.name') {{idea.name}}
@@ -11,8 +15,8 @@
           span(v-if='idea.example')
             p
               i eg: {{idea.example}}
-    div.col-md-6
-      h3 Participate
+    div(v-if="show === 'Attending'")  
+      p &nbsp;
       ul
         li(v-for='idea in list')
           u.idea(v-if='idea.name') {{idea.name}}
@@ -35,6 +39,8 @@ export default {
   },
   data () {
     return {
+      pages: ['Hosting', 'Attending'],
+      show: 'Attending',
       options: {
         type: Object
       },
