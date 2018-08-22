@@ -2,6 +2,12 @@ export default {
   apiURL: 'http://localhost:3333',
   apiHeader: {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
 
+  overview: [
+    'Meet like-minded people',
+    'Organize events for friends',
+    'Organize events for strangers',
+    'Attend events targetting your individual passioins'
+  ],
   setup: [
     'Register as a member (free)',
     'Indicate interests and the types of activities you like to do',
@@ -18,16 +24,18 @@ export default {
 
   forms: {
     'event_filters': [
-      {name: 'gender_balanced', type: "enum('No', 'Passive', 'Active')"},
-      {name: 'signup_strategy', type: "enum('FCFS','Lottery')"},
-      {name: 'connectivity', type: "enum('favourites','fof','fofof','unconnected')"}
+      { name: 'gender_balanced', type: "enum('No', 'Passive', 'Active')" },
+      { name: 'signup_strategy', type: "enum('FCFS','Lottery')" }
     ],
-    'event': [
+    'eventBasics': [
       { name: 'Title', type: 'varchar' },
       { name: 'Description', type: 'text' },
       { name: 'Start', type: 'date' },
       { name: 'End', type: 'date' },
-      { name: 'Location', type: 'text' },
+      { name: 'Location', type: 'text' }
+    ],
+    'eventDetails': [
+      { name: 'connectivity', type: "enum('favourites','fof','fofof','unconnected')" },
       { name: 'Signup Deadline', type: 'date' },
       { name: 'Min_number', type: 'integer', default: 2 },
       { name: 'Max_number', type: 'integer' },
@@ -59,13 +67,13 @@ export default {
     {id: 22, 'name': 'Scrabble', 'parent_id': 20, selected: false},
     {id: 23, 'name': 'museum', 'parent_id': 3, selected: true},
     {id: 24, 'name': 'art gallery', 'parent_id': 3, selected: true},
-    {id: 25, 'name': 'ballet', 'parent_id': 3, selected: true},
-    {id: 26, 'name': 'opera', 'parent_id': 3, selected: true},
+    {id: 25, 'name': 'ballet', 'parent_id': 3, selected: false},
+    {id: 26, 'name': 'opera', 'parent_id': 3, selected: false},
     {id: 27, 'name': 'dancing', 'parent_id': 2, selected: true},
     {id: 28, 'name': 'swing', 'parent_id': 27, selected: true},
     {id: 29, 'name': 'blues', 'parent_id': 27, selected: true},
     {id: 30, 'name': 'club', 'parent_id': 27, selected: true},
-    {id: 31, 'name': 'sports (watching)', 'parent_id': 2, selected: true},
+    {id: 31, 'name': 'sports (watching)', 'parent_id': 2, selected: false},
     {id: 32, 'name': 'philosophy', 'parent_id': 3, selected: true},
     {id: 33, 'name': 'politics', 'parent_id': 3, selected: true},
     {id: 34, 'name': 'science', 'parent_id': 3, selected: true},
@@ -75,15 +83,15 @@ export default {
     {id: 38, 'name': 'basketball', 'parent_id': 31}
   ],
   demo_events: [
-    {id: 1, name: 'Potluck', description: 'description of potluck', location: 'Toronto, ON', interests: 'dinner parties, philosophy'},
-    {id: 2, name: 'Dancing', description: 'description of dance', location: 'Vancouver', skills: 'Dancing: intermediate'}
+    {id: 1, name: 'Potluck', description: 'description of potluck', location: 'Toronto, ON', interests: 'dinner parties, philosophy', image: 'potluckWide.jpg'},
+    {id: 2, name: 'Dancing', description: 'description of dance', location: 'Vancouver', skills: 'Dancing: intermediate', image: 'dancing.jpg'}
   ],
   demo_invites: [
-    {id: 5, name: 'Dinner Party', description: 'description of art gallery event', location: 'Toronto, ON', interests: 'dinner, travel, discussion'},
-    {id: 5, name: 'Bike Ride', description: 'description of art gallery event', location: 'Toronto, ON', interests: 'bike touring, travel'},
-    {id: 3, name: 'Art Gallery', description: 'description of art gallery event', location: 'Toronto, ON', interests: 'modern art, discussion'},
-    {id: 4, name: 'Flash Mob', description: 'description of dance', location: 'Vancouver', skills: 'Dancing: intermediate', interests: 'Spontaneity, Flash mobs'},
-    {id: 6, name: 'Singles book club', description: 'description of dance', location: 'Vancouver', interests: 'book club, dinner, single events'}
+    {id: 5, name: 'Dinner Party', description: 'description of art gallery event', location: 'Toronto, ON', interests: 'dinner, travel, discussion', image: 'mingle.jpg'},
+    {id: 5, name: 'Bike Ride', description: 'description of art gallery event', location: 'Toronto, ON', interests: 'bike touring, travel', image: 'bike.png'},
+    {id: 3, name: 'Art Gallery', description: 'description of art gallery event', location: 'Toronto, ON', interests: 'modern art, discussion', image: 'art.png'},
+    {id: 4, name: 'Flash Mob', description: 'description of dance', location: 'Vancouver', skills: 'Dancing: intermediate', interests: 'Spontaneity, Flash mobs', image: 'dancing.jpg'},
+    {id: 6, name: 'Singles book club', description: 'description of dance', location: 'Vancouver', interests: 'book club, dinner, single events', image: 'singles.png'}
   ],
   demo_differences: [
     'anyone can host events (once they are verified members)',
@@ -127,9 +135,9 @@ export default {
       description: 'Find like-minded people of similar experience level to take part in activities you enjoy'
     },
     {
-      name: 'Put on a live theatre production in the woods',
-      example: 'generate targetted invites to members with esoteric interests',
-      description: 'Get free exposure and connect with an expanding tribe of people with common esoteric interests'
+      name: 'Put on a community arts event',
+      example: 'generate targetted invites to members with specific or esoteric interests',
+      description: 'Get great exposure for arts & music events in your local community'
     },
     {
       name: 'Support local restaurants & cafes',
