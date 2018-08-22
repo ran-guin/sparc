@@ -1,20 +1,64 @@
 <template lang='pug'>
     div.container
       // b F: {{JSON.stringify(forms)}}"
-      div.col-md-4
-        h3(v-if='forms.host && forms.host.Title') {{forms.host.Title}}
+      span(v-for='page in pages' style='padding-left: 50px')
+        a(href='#' @click.prevent="show=page" v-bind:class="[{onPage: show===page}, {offPage: show!==page}]")
+          b.submenu {{page}} &nbsp;
+          icon(name='check-circle' v-show='completed[page]' color='green')
+          span &nbsp;
+      hr
+      // div.col-md-4
+      div(v-show="show === 'Basics'")  
+        h3(v-if='forms.basics && forms.basics.Title') {{forms.basics.Title}}
         h3(v-else) Create Event
-        DBForm(:options='hostFields' title: 'Host Event' :onSave='saveEvent')
-      div.col-md-4
+        DBForm(:options='basicFields' access='append' title: 'Host Event' :onSave='saveBasics' :record='forms.basic')
+        // div(v-else)
+        //   h3 {{forms.basics.Title}}
+        //   table.table
+        //     tr(v-for='field in basicFields.fields' v-show="field.name !== 'Title'")
+        //       td {{field.name}}
+        //       td {{forms.basics[field.name]}}
+      // div.col-md-4
+      div(v-show="show === 'Details'")
+        p Fill in other details before finalizing your event
+        DBForm(:options='detailsFields' access='append' title: 'Host Event' :onSave='saveDetails' :record='forms.details')
+      div(v-show="show === 'Activities' || show === 'Summary'")
+        p Select the activities/interests that will be the focus of your event
         h3 Primary Activity
         RecursiveList(:list='aliases' :options='primaryOptions' :onPick='pickMe' :secondaryPick='skillPick' :onSave='savePrimary')
-        hr
+        // div(v-else)
+        //   b {{JSON.stringify(this.forms.primary)}}
+
+      div(v-show="show === 'Interests' || show === 'Summary'")
+        p Filter invitees on other interests they may have to target like-minded individuals (optional)
         h3 Secondary Interest(s)
         RecursiveList(:list='aliases' :options='secondaryOptions' :secondaryPick='skillPick' :onSave="saveSecondary")
-      div.col-md-4
+        // div(v-else)
+        //   b {{JSON.stringify(this.forms.secondary)}}
+      // div.col-md-4
+      div(v-show="show === 'Options'")
+        p Additional options affecting the order of accepted participants
         h3 Advanced Options
-        DBForm(:options='hostFilter')
-      // button.btn.btn-primary.form-control(v-on:click='saveEvent()') Save Event
+        DBForm(:options='hostFilter' access='append' :record='forms.options' :onSave='saveOptions')
+      div(v-show="show === 'Summary'")
+        div.col-md-4
+          DBForm(:options='basicFields' access='read' title: 'Host Event' :onSave='saveBasics' :record='forms.basics')
+          hr
+          DBForm(:options='detailsFields' access='read' title: 'Host Event' :onSave='saveDetails' :record='forms.details')       
+        div.col-md-4
+          h4 Primary Activity
+            b {{JSON.stringify(this.forms.primary_names)}}
+          h4 Secondary Activity
+            b {{JSON.stringify(this.forms.secondary_names)}}
+        div.col-md-4
+          h3 Advanced Options
+          DBForm(:options='hostFilter' access='read' :record='forms.options')
+        div.col-md-12
+          hr
+          button.btn.btn-primary.form-control(v-on:click='saveEvent()') Save Event
+      hr
+      b {{JSON.stringify(forms)}}
+
 </template>
 
 <script>
@@ -31,14 +75,17 @@ export default {
   },
   data () {
     return {
+      pages: ['Basics', 'Activities', 'Interests', 'Details', 'Options', 'Summary'],
+      show: 'Basics',
       primaryOptions: { selectOne: true, clear: true, modalID: 'eventModal' },
       secondaryOptions: { selectable: true, clear: true, modalID: 'eventModal' },
-      hostFields: {
-        access: 'append',
-        fields: config.forms.event
+      basicFields: {
+        fields: config.forms.eventBasics
+      },
+      detailsFields: {
+        fields: config.forms.eventDetails
       },
       hostFilter: {
-        access: 'append',
         fields: config.forms.event_filters
       },
       test: config.forms.event_filters,
@@ -48,7 +95,8 @@ export default {
         selectText: '[skill]',
         onPick: this.eventModal
       },
-      forms: {}
+      forms: {},
+      completed: {}
     }
   },
   created () {
@@ -86,19 +134,52 @@ export default {
     pickMe: function (record) {
       console.log('pick ' + JSON.stringify(record))
     },
-    saveEvent: function (form) {
+    pageAfter: function (page) {
+      if (page >= this.pages.length) {
+        this.show = this.pages[this.pages.length]
+      } else if (this.completed[this.pages[page + 1]]) {
+        console.log('page after ' + page + 'already completed')
+        this.pageAfter(page + 1)
+      } else {
+        this.show = this.pages[page + 1]
+      }
+    },
+    saveBasics: function (form) {
       console.log('copy form ' + JSON.stringify(form))
-      this.$set(this.forms, 'host', form)
+      this.$set(this.forms, 'basics', form)
+      this.pageAfter(0)
+      this.completed[this.pages[0]] = true
     },
-    savePrimary: function (form) {
-      console.log('copy primary form ' + JSON.stringify(form))
-      this.$set(this.forms, 'primary', form)
+    savePrimary: function (ids, labels) {
+      console.log('copy primary form ' + JSON.stringify(ids))
+      this.$set(this.forms, 'primary', ids)
+      this.$set(this.forms, 'primary_names', labels)
+      this.pageAfter(1)
+      this.completed[this.pages[1]] = true
     },
-    saveSecondary: function (form) {
-      console.log(' copy secondary form ' + JSON.stringify(form))
-      this.$set(this.forms, 'secondary', form)
+    saveSecondary: function (ids, labels) {
+      console.log(' copy ids' + JSON.stringify(ids))
+      console.log(' copy labels' + JSON.stringify(labels))
+      this.$set(this.forms, 'secondary', ids)
+      this.$set(this.forms, 'secondary_names', labels)
+      this.pageAfter(2)
+      this.completed[this.pages[2]] = true
     },
-
+    saveDetails: function (form) {
+      console.log('copy form ' + JSON.stringify(form))
+      this.$set(this.forms, 'details', form)
+      this.pageAfter(3)
+      this.completed[this.pages[3]] = true
+    },
+    saveOptions: function (form) {
+      this.$set(this.forms, 'options', form)
+      this.pageAfter(4)
+      this.completed[this.pages[4]] = true
+    },
+    saveEvent: function (form) {
+      console.log('save Event')
+      console.log(JSON.stringify(this.forms))
+    },
     definedSkill: function (record) {
       if (record.skill_level) {
         return true
