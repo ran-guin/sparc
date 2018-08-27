@@ -1,22 +1,25 @@
 <template lang='pug'>
   div
-    PrivateHeader.header.header1(v-if='bigHeader')
-    MiniHeader.header.header2(v-else)
+    PrivateHeader.header.header1(v-if='bigHeader' :payload='payload')
+    MiniHeader.header.header2(v-else :payload='payload')
     div.subheader(v-bind:class="[{subheader1: bigHeader}, {subheader2: !bigHeader}]")
       span(v-for='page in pages' style='padding-left: 50px')
         a(href='#' @click.prevent="showPage(page)" v-bind:class="[{onPage: show==page}, {offPage: show!=page}]")
           b.menuItem {{page}}
     div.body(v-bind:class="[{body1: bigHeader}, {body2: !bigHeader}]")
       div
-        b Status: {{status}}
-        p &nbsp;
+        <!-- b Status: {{status}} -->
+        <!-- p &nbsp; -->
         About(v-if="show=='About'")
-        Interests(v-else-if="show==='Interests'" :list='interests')
-        Events(v-else-if="show==='Events'" :list='events' :invites='invites')
-        Host(v-else-if="show==='Host'" :list='interests')
+        Interests(v-else-if="show==='Interests'" :list='interests' :interest_ids='interest_ids' :payload='payload')
+        Events(v-else-if="show==='Events'" :list='events' :invites='invites' :payload='payload')
+        Host(v-else-if="show==='Host'" :list='interests' :payload='payload')
         Ideas(v-else-if="show==='Ideas'")
         Welcome(v-else)
-    PublicFooter.footer(v-bind:class=" [{footer1: show==''}, {footer2: show!==''}]")
+      div.col-md-12
+        hr
+        span {{JSON.stringify(payload)}}
+    PublicFooter.footer(v-bind:class=" [{footer1: show==''}, {footer2: show!==''}]" :payload='payload')
 </template>
 
 <script>
@@ -34,6 +37,7 @@ import MiniHeader from './MiniHeader.vue'
 import PublicFooter from './PublicFooter.vue'
 
 import axios from 'axios'
+import lodash from 'lodash'
 import config from './config.js'
 
 import 'vue-awesome/icons/exclamation-triangle'
@@ -59,7 +63,9 @@ export default {
   },
   data () {
     return {
-      pages: ['About', 'Interests', 'Events', 'Host', 'Ideas'],
+      memberPages: ['Interests', 'Events', 'Host'],
+      hostPages: ['Interests', 'Events', 'Host'],
+      publicPages: ['About', 'Interests', 'Events', 'Ideas'],
       show: '',
       onPage: 'Events',
       skillURL: config.skillMirrorUrl,
@@ -72,7 +78,11 @@ export default {
 
       openInterests: {'idnull': true, 'id0': true, 'id1': true},
       bc: 'green',
-      status: 'init'
+      status: 'init',
+      interest_ids: [],
+      URL: config.apiURL,
+      urlHeader: config.apiHeader
+
     }
   },
   props: {
@@ -80,59 +90,31 @@ export default {
   events: {
   },
   created: function () {
-    console.log('retrieve interests...')
-    axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
-
-    var URL = config.apiURL
-    var urlHeader = config.apiHeader
-    // axios(URL, { method: 'GET', headers: urlHeader })
-    //   .then(function (result, err) {
-    //     if (err) {
-    //       console.log('test error...')
-    //       console.log('axios error: ' + err)
-    //       _this.status = 'test error'
-    //     } else {
-    //       _this.status = 'test passed'
-    //       console.log('test returned value(s): ' + JSON.stringify(result.data))
-    //     }
-    //   })
-
-    this.status = 'loading...'
-    console.log('retrieve interests via axios from ' + URL)
-
-    var _this = this
-    axios(URL + '/interests', {method: 'GET', headers: urlHeader})
-      .then(function (result, err) {
-        if (err) {
-          _this.status = 'nexterr'
-          console.log('set axios error...')
-          _this.$store.commit('setError', {context: 'Searching For ' + _this.scope, err: err})
-          console.log('axios error: ' + err)
-        } else {
-          _this.status += 'loaded interests...'
-          _this.interests = result.data
-
-          console.log('axios returned value(s): ' + JSON.stringify(_this.interests))
-          _this.$store.commit('setHash', {key: 'interests', value: _this.interests})
-        }
-      })
-
-    console.log('retrieve skills via axios from ' + URL)
-    axios(URL + '/skills', {method: 'GET', headers: urlHeader})
-      .then(function (result, err) {
-        if (err) {
-          console.log('set axios error...')
-          _this.$store.commit('setError', {context: 'Searching For ' + _this.scope, err: err})
-          console.log('axios error: ' + err)
-        } else {
-          _this.status += 'loaded skills...'
-          _this.skills = result.data
-          _this.$store.commit('setHash', {key: 'skills', value: result.data})
-          console.log('axios returned value(s): ' + JSON.stringify(result.data))
-        }
-      })
+    this.loadData()
   },
   computed: {
+    userid: function () {
+      return this.payload.userid
+    },
+    payload: function () {
+      var payload = this.$store.getters.payload || null
+      if (payload && payload.constructor === Object) {
+        console.log('object payload: ' + JSON.stringify(payload))
+        return payload
+      } else if (payload && payload.constructor === String) {
+        console.log('string payload: ' + payload)
+        return JSON.parse(payload)
+      } else {
+        return { access: 'public' }
+      }
+    },
+    pages: function () {
+      if (this.payload && this.payload.userid) {
+        return this.memberPages
+      } else {
+        return this.publicPages
+      }
+    },
     storedInterests: function () {
       console.log('get stored interests')
       var C = this.$store.getters.getHash('interests') || []
@@ -147,43 +129,79 @@ export default {
       }
     }
   },
+  watch: {
+    userid: function (val) {
+      console.log('WATCHED payload updated in Main: ' + JSON.stringify(val))
+      this.userInterests()
+      //   this.userSkills()
+    }
+  },
   methods: {
     showPage (page) {
-      console.log('show ' + page)
       this.show = page
-      console.log('now ' + this.show)
     },
     loadData: function () {
+      console.log('retrieve interests...')
       axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
+      this.status = 'loading...'
+      console.log('retrieve interests via axios from ' + URL)
+
       var _this = this
-      axios.get(this.interestURL)
+      axios(this.URL + '/interests', {method: 'GET', headers: this.urlHeader})
         .then(function (result, err) {
           if (err) {
-            console.log('set error...')
+            _this.status = 'nexterr'
+            console.log('set axios error...')
             _this.$store.commit('setError', {context: 'Searching For ' + _this.scope, err: err})
             console.log('axios error: ' + err)
           } else {
+            _this.status += 'loaded interests...'
             _this.interests = result.data
 
-            console.log('axios returned value(s): ' + JSON.stringify(_this.interests))
+            console.log('axios returned interest value(s): ' + JSON.stringify(_this.interests))
+            console.log('ids1: ' + JSON.stringify(_this.interest_ids))
+
+            console.log('interest_ids: ' + _this.interest_ids.join(', '))
             _this.$store.commit('setHash', {key: 'interests', value: _this.interests})
           }
         })
 
-      console.log('retrieve skills...')
-      axios.get(this.skillURL)
+      console.log('retrieve skills via axios from ' + URL)
+      axios(URL + '/skills', {method: 'GET', headers: this.urlHeader})
         .then(function (result, err) {
           if (err) {
-            console.log('set error...')
+            console.log('set axios error...')
             _this.$store.commit('setError', {context: 'Searching For ' + _this.scope, err: err})
             console.log('axios error: ' + err)
           } else {
+            _this.status += 'loaded skills...'
             _this.skills = result.data
             _this.$store.commit('setHash', {key: 'skills', value: result.data})
-            console.log('axios returned value(s): ' + JSON.stringify(result.data))
+            console.log('axios returned skill value(s): ' + JSON.stringify(result.data))
           }
         })
+    },
+    userInterests: function () {
+      var append = ''
+      if (this.payload && this.payload.userid) {
+        append = '?userid=' + this.payload.userid
+      } else { console.log('no payload userid') }
+
+      var _this = this
+      axios(this.URL + '/interests' + append, {method: 'GET', headers: this.urlHeader})
+        .then(function (result, err) {
+          if (err) {
+            console.log('axios error: ' + err)
+          } else {
+            _this.interest_ids = lodash.map(result.data, 'id')
+            // console.log(JSON.stringify(lodash.map(result.data, 'id')))
+            console.log('reset interest_ids: ' + JSON.stringify(_this.interest_ids))
+          }
+        })
+    },
+    userSkills: function () {
+      console.log('update skills')
     }
   }
 }
@@ -209,6 +227,8 @@ $subheader-background-colour: transparent;
 
 $body-background-colour: #ddd;
 $body-colour: black;
+
+$min-height: 600px;
 
 // Secondary page type:
 
@@ -294,7 +314,8 @@ a:hover {
 }
 .body1 {
   // padding-top: 5px; // $subheader-height;
-  min-height: calc(100vh - #{$header-height} - #{$subheader-height} - #{$footer-height});
+  // min-height: calc(100vh - #{$header-height} - #{$subheader-height} - #{$footer-height});
+  min-height: 600px;
 }
 
 .body2 {
