@@ -10,14 +10,14 @@
             h3 What is it ?
           ul
             li(v-for='step in overview')
-              i {{step}}        
+              i {{step}}
         div(v-show="show === 'Getting Started'")
           u
             h3 Participate
           ul
             li(v-for='step in setup')
               i {{step}}
-        div(v-show="show === 'Hosting'")  
+        div(v-show="show === 'Hosting'")
           u
             h3 Host
           ul
