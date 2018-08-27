@@ -4,7 +4,7 @@
       a(href='#' @click.prevent="show=page" v-bind:class="[{onPage: show===page}, {offPage: show!==page}]")
         b.submenu {{page}}
 
-    div(v-if="show === 'Hosting'")     
+    div(v-if="show === 'Hosting'")
       p &nbsp;
       ul
         li(v-for='idea in hostList')
@@ -15,7 +15,7 @@
           span(v-if='idea.example')
             p
               i eg: {{idea.example}}
-    div(v-if="show === 'Attending'")  
+    div(v-if="show === 'Attending'")
       p &nbsp;
       ul
         li(v-for='idea in list')
