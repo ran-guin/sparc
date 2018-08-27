@@ -45,6 +45,10 @@ export default {
     SearchButton
   },
   props: {
+    payload: {
+      type: Object,
+      default () { return {} }
+    },
     searchOpen: {
       type: Boolean,
       default: false
@@ -66,18 +70,6 @@ export default {
       if (this.payload && this.payload.username) {
         return this.payload.username
       } else { return null }
-    },
-    payload: function () {
-      var payload = this.$store.getters.payload || null
-      if (payload && payload.constructor === Object) {
-        console.log('payload: ' + payload)
-        return payload
-      } else if (payload && payload.constructor === String) {
-        console.log('payload: ' + payload)
-        return JSON.parse(payload)
-      } else {
-        return { access: 'public' }
-      }
     }
   },
   methods: {
