@@ -2,7 +2,7 @@
   div.info-header
     div.col-xs-2.info-logo
       a(href='/sparc')
-        img(src='/static/images/venn.gif' height='50px')
+        img(src='/static/images/sparc/venn.gif' height='50px')
       // router-link(:to="{name: 'Sparc'}")
     div.col-xs-6.info-left
       b SPARC &nbsp; &nbsp;
