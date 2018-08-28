@@ -3,7 +3,7 @@
       div.container
         h2 Connecting Communities One Event at a Time...
         hr
-      div.col-md-4
+      div.col-title.col-md-4
         h3 Looking for your Tribe ?
         img.welcome-slides(src='/static/images/sparc/alone.jpg')
       div.col-md-4
@@ -35,6 +35,11 @@ export default {
 </script>
 
 <style scoped>
+
+.col-title {
+  text-align: center;
+  color: green;
+}
 
 .welcome-slides {
   width: 100%;
