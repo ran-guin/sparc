@@ -16,9 +16,6 @@
         Host(v-else-if="show==='Host'" :list='interests' :payload='payload')
         Ideas(v-else-if="show==='Ideas'")
         Welcome(v-else)
-      div.col-md-12
-        hr
-        span {{JSON.stringify(payload)}}
     PublicFooter.footer(v-bind:class=" [{footer1: show==''}, {footer2: show!==''}]" :payload='payload')
 </template>
 
@@ -236,7 +233,7 @@ $subheader-background-colour: transparent;
 $body-background-colour: #ddd;
 $body-colour: black;
 
-$min-height: 600px;
+$min-height: 70rem;
 
 // Secondary page type:
 
@@ -320,21 +317,22 @@ a:hover {
   font-size: 18px !important;
   z-index: 10000;
 }
+.html {
+  min-height: $min-height;
+}
 .body1 {
-  // padding-top: 5px; // $subheader-height;
   min-height: #{$min-height};
-  // min-height: calc(100vh - #{$header-height} - #{$subheader-height} - #{$footer-height});
 }
 .body2 {
-  // padding-top: $subheader2-height;
   min-height: #{$min-height};
-  // min-height: calc(100vh - #{$header2-height} - #{$subheader-height} - #{$footer2-height});
 }
 
-@media screen and (min-height: #{$min-height}) {
+@media screen and (min-height: calc(#{$min-height} + #{$header-height} + #{$subheader-height} + #{$footer-height})) {
   .body1 {
     min-height: calc(100vh - #{$header-height} - #{$subheader-height} - #{$footer-height});
   }
+}
+@media screen and (min-height: calc(#{$min-height} + #{$header2-height} + #{$subheader-height} + #{$footer2-height})) {
   .body2 {
     min-height: calc(100vh - #{$header2-height} - #{$subheader-height} - #{$footer2-height});
   }
