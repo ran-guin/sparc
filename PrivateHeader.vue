@@ -2,7 +2,7 @@
   div.info-header
     div.col-xs-2.info-logo
       router-link(:to="{name: 'Sparc'}")
-        img(src='/static/images/venn.gif' height='100px')
+        img(src='/static/images/sparc/venn.gif' height='100px')
     div.col-xs-6.info-left
       b SPARC &nbsp; &nbsp;
       h4 Social Platform Affecting Real Connections
