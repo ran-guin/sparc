@@ -16,7 +16,6 @@
           span etwork
       span &nbsp; &nbsp;
       span &nbsp; &nbsp;
-
       span.navbar-centre(v-html="centre")
       div.navbar-right(v-html="right")
 </template>
@@ -39,6 +38,9 @@ export default {
     },
     centre: {
       type: String
+    },
+    payload: {
+      type: Object
     }
   }
 }

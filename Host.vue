@@ -1,63 +1,75 @@
 <template lang='pug'>
     div.container
       // b F: {{JSON.stringify(forms)}}"
-      span(v-for='page in pages' style='padding-left: 50px')
-        a(href='#' @click.prevent="show=page" v-bind:class="[{onPage: show===page}, {offPage: show!==page}]")
-          b.submenu {{page}} &nbsp;
-          icon(name='check-circle' v-show='completed[page]' color='green')
-          span &nbsp;
-      hr
-      // div.col-md-4
-      div(v-show="show === 'Basics'")
-        h3(v-if='forms.basics && forms.basics.Title') {{forms.basics.Title}}
-        h3(v-else) Create Event
-        DBForm(:options='basicFields' access='append' title: 'Host Event' :onSave='saveBasics' :record='forms.basic')
-        // div(v-else)
-        //   h3 {{forms.basics.Title}}
-        //   table.table
-        //     tr(v-for='field in basicFields.fields' v-show="field.name !== 'Title'")
-        //       td {{field.name}}
-        //       td {{forms.basics[field.name]}}
-      // div.col-md-4
-      div(v-show="show === 'Details'")
-        p Fill in other details before finalizing your event
-        DBForm(:options='detailsFields' access='append' title: 'Host Event' :onSave='saveDetails' :record='forms.details')
-      div(v-show="show === 'Activities' || show === 'Summary'")
-        p Select the activities/interests that will be the focus of your event
-        h3 Primary Activity
-        RecursiveList(:list='aliases' :options='primaryOptions' :onPick='pickMe' :secondaryPick='skillPick' :onSave='savePrimary')
-        // div(v-else)
-        //   b {{JSON.stringify(this.forms.primary)}}
+      div(v-if="access !== 'host'")
+        p Anyone can act as a host but there are a few requirements.
+        p All hosts must have:
+        ul
+          li Verified Identity
+          li Verified Contact Information
+          li Reference by existing member
+          li Filled in a host application
+        p Once you are an accepted host, then you will be on probation until members review your events
+        p Hosts who fail to receive regular positive reviews for their events may be required to reapply for host status
+        p These guidelines are in place to maximize the quality of active hosts
+      div(v-else)
+        span(v-for='page in pages' style='padding-left: 50px')
+          a(href='#' @click.prevent="show=page" v-bind:class="[{onPage: show===page}, {offPage: show!==page}]")
+            b.submenu {{page}} &nbsp;
+            icon(name='check-circle' v-show='completed[page]' color='green')
+            span &nbsp;
+        hr
+        // div.col-md-4
+        div(v-show="show === 'Basics'")
+          h3(v-if='forms.basics && forms.basics.Title') {{forms.basics.Title}}
+          h3(v-else) Create Event
+          DBForm(:options='basicFields' access='append' title: 'Host Event' :onSave='saveBasics' :record='forms.basic')
+          // div(v-else)
+          //   h3 {{forms.basics.Title}}
+          //   table.table
+          //     tr(v-for='field in basicFields.fields' v-show="field.name !== 'Title'")
+          //       td {{field.name}}
+          //       td {{forms.basics[field.name]}}
+        // div.col-md-4
+        div(v-show="show === 'Details'")
+          p Fill in other details before finalizing your event
+          DBForm(:options='detailsFields' access='append' title: 'Host Event' :onSave='saveDetails' :record='forms.details')
+        div(v-show="show === 'Activities' || show === 'Summary'")
+          p Select the activities/interests that will be the focus of your event
+          h3 Primary Activity
+          RecursiveList(:list='aliases' :options='primaryOptions' :onPick='pickMe' :secondaryPick='skillPick' :onSave='savePrimary')
+          // div(v-else)
+          //   b {{JSON.stringify(this.forms.primary)}}
 
-      div(v-show="show === 'Interests' || show === 'Summary'")
-        p Filter invitees on other interests they may have to target like-minded individuals (optional)
-        h3 Secondary Interest(s)
-        RecursiveList(:list='aliases' :options='secondaryOptions' :secondaryPick='skillPick' :onSave="saveSecondary")
-        // div(v-else)
-        //   b {{JSON.stringify(this.forms.secondary)}}
-      // div.col-md-4
-      div(v-show="show === 'Options'")
-        p Additional options affecting the order of accepted participants
-        h3 Advanced Options
-        DBForm(:options='hostFilter' access='append' :record='forms.options' :onSave='saveOptions')
-      div(v-show="show === 'Summary'")
-        div.col-md-4
-          DBForm(:options='basicFields' access='read' title: 'Host Event' :onSave='saveBasics' :record='forms.basics')
-          hr
-          DBForm(:options='detailsFields' access='read' title: 'Host Event' :onSave='saveDetails' :record='forms.details')
-        div.col-md-4
-          h4 Primary Activity
-            b {{JSON.stringify(this.forms.primary_names)}}
-          h4 Secondary Activity
-            b {{JSON.stringify(this.forms.secondary_names)}}
-        div.col-md-4
+        div(v-show="show === 'Interests' || show === 'Summary'")
+          p Filter invitees on other interests they may have to target like-minded individuals (optional)
+          h3 Secondary Interest(s)
+          RecursiveList(:list='aliases' :options='secondaryOptions' :secondaryPick='skillPick' :onSave="saveSecondary")
+          // div(v-else)
+          //   b {{JSON.stringify(this.forms.secondary)}}
+        // div.col-md-4
+        div(v-show="show === 'Options'")
+          p Additional options affecting the order of accepted participants
           h3 Advanced Options
-          DBForm(:options='hostFilter' access='read' :record='forms.options')
-        div.col-md-12
-          hr
-          button.btn.btn-primary.form-control(v-on:click='saveEvent()') Save Event
-      hr
-      b {{JSON.stringify(forms)}}
+          DBForm(:options='hostFilter' access='append' :record='forms.options' :onSave='saveOptions')
+        div(v-show="show === 'Summary'")
+          div.col-md-4
+            DBForm(:options='basicFields' access='read' title: 'Host Event' :onSave='saveBasics' :record='forms.basics')
+            hr
+            DBForm(:options='detailsFields' access='read' title: 'Host Event' :onSave='saveDetails' :record='forms.details')
+          div.col-md-4
+            h4 Primary Activity
+              b {{JSON.stringify(this.forms.primary_names)}}
+            h4 Secondary Activity
+              b {{JSON.stringify(this.forms.secondary_names)}}
+          div.col-md-4
+            h3 Advanced Options
+            DBForm(:options='hostFilter' access='read' :record='forms.options')
+          div.col-md-12
+            hr
+            button.btn.btn-primary.form-control(v-on:click='saveEvent()') Save Event
+        hr
+        b {{JSON.stringify(forms)}}
 
 </template>
 

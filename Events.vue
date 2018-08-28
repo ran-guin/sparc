@@ -1,10 +1,18 @@
 <template lang='pug'>
   div.container
+    div(v-show="!payload || !payload.userid")
+      p Members may receive invitations automatically based upon their specified interests.
+      p Non-members may attend public events until they are invited by existing members.
+      hr
     span(v-for='page in pages' style='padding-left: 50px')
       a(href='#' @click.prevent="show=page" v-bind:class="[{onPage: show===page}, {offPage: show!==page}]")
         b.submenu {{page}}
     hr.eventHR
     div(v-if="show === 'Upcoming'")
+      ul
+        li(v-for='event in list')
+          Event(:event='event' :modal='eventModal')
+    div(v-else-if="show === 'Public Events'")
       ul
         li(v-for='event in list')
           Event(:event='event' :modal='eventModal')
@@ -27,7 +35,6 @@ export default {
   },
   data () {
     return {
-      pages: ['Upcoming', 'Invitations', 'Search'],
       show: 'Upcoming',
       options: {
         type: Object
@@ -36,9 +43,17 @@ export default {
   },
   props: {
     list: { type: Array },
-    invites: { type: Array }
+    invites: { type: Array },
+    payload: { type: Object }
   },
   computed: {
+    pages: function () {
+      if (this.payload && this.payload.userid) {
+        return ['Upcoming', 'Invitations', 'Search']
+      } else {
+        return ['Public Events', 'Search']
+      }
+    }
   },
   methods: {
     eventModal: function (record) {

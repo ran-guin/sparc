@@ -18,11 +18,11 @@ class sparcUserSeeder {
   	const users = await Database.table('user').insert([
           {id: 1, username: 'Admin', email: 'admin@sparc.com'},
           {id: 2, username: 'Guest', email: 'guest@sparc.com'},
-          {id: 3, username: 'DemoUser', email: 'demo@sparc.com'},
-          {id: 4, username: 'DemoUser2', email: 'demo2@sparc.com'},
-          {id: 5, username: 'DemoUser3', email: 'demo3@sparc.com'},
-          {id: 6, username: 'DemoUser4', email: 'demo4@sparc.com'},
-          {id: 7, username: 'DemoUser5', email: 'demo5@sparc.com'}
+          {id: 3, username: 'DemoGuest', email: 'demoGuest@sparc.com'},
+          {id: 4, username: 'DemoMember', email: 'demoMember@sparc.com'},
+          {id: 5, username: 'DemoHost', email: 'demoHost@sparc.com'},
+          {id: 6, username: 'DemoAdmin', email: 'demoAdmin@sparc.com'},
+          {id: 7, username: 'DemoMember2', email: 'demoMember2@sparc.com'}
   	])
 
   	console.log('seeded users: ' + users)

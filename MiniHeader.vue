@@ -12,7 +12,7 @@
         table
           tr
             td(v-if="staff")
-              b staff
+              b {{staff}}
             td
               SearchButton()
     div.col-xs-12(style='padding: 0px')

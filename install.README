@@ -1,0 +1,45 @@
+## instructions for installing standard projects into Vue boilerplate from scratch ##
+
+adonis new PROJNAME
+adonis install @adonisjs/validator
+(add Validator to list of providers in start/app.js)
+
+# (requires global npm install of vue)
+
+> vue init webpack client
+
+> cd client
+
+> npm install
+
+> npm install -S vuex axios cors bootstrap@3.7.7 bootstrap-vue vue-form-generator vue-diretive-tooltip lodash vue-async-computed
+
+> npm install -D pug vue-awesome node-sass sass-loader
+
+> cd src/components
+
+> git clone https://github.com/ran-guin/vue-standard-components Standard
+
+*** Add custom package *** 
+
+> git clone https://github.com/ran-guin/sparc sparc
+
+> cd sparc
+
+> add icons required to webpack.base file ?  ... (eg 'fa-close'); import in .vue file somewhere ... (eg import 'vue-awesome/icons/home')
+
+> source .install
+
+> ./../../../node_modules/eslint/bin/eslint.js *.vue --fix
+
+*** Install adonis:
+
+yarn build --prod // generate dist/ directory with static files
+
+cd ..
+
+** optionally migrate / seed database (update .env file with database connection variables)
+
+cp -R VUEPROJ/dist/* PROJNAME/public/
+
+cp -R VUEPROJ/setup/adonis/* PROJNAME/ 
