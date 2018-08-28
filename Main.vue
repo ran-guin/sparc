@@ -6,7 +6,7 @@
       span(v-for='page in pages' style='padding-left: 50px')
         a(href='#' @click.prevent="showPage(page)" v-bind:class="[{onPage: show==page}, {offPage: show!=page}]")
           b.menuItem {{page}}
-    div.body(v-bind:class="[{body1: bigHeader}, {body2: !bigHeader}]")
+    div.myBody(v-bind:class="[{body1: bigHeader}, {body2: !bigHeader}]")
       div
         <!-- b Status: {{status}} -->
         <!-- p &nbsp; -->
@@ -314,7 +314,7 @@ a:hover {
   height: $subheader2-height;
 }
 
-.body {
+.myBody {
   background-color: $body-background-colour;
   color: $body-colour;
   font-size: 18px !important;
@@ -322,10 +322,14 @@ a:hover {
 }
 .body1 {
   // padding-top: 5px; // $subheader-height;
+  min-height: #{$min-height};
   // min-height: calc(100vh - #{$header-height} - #{$subheader-height} - #{$footer-height});
-  min-height: 600px;
 }
-
+@media screen and (min-height: #{$min-height}) {
+  .body1 {
+    min-height: calc(100vh - #{$header-height} - #{$subheader-height} - #{$footer-height});
+  }
+}
 .body2 {
   // padding-top: $subheader2-height;
   min-height: calc(100vh - #{$header2-height} - #{$subheader-height} - #{$footer2-height});
