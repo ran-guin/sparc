@@ -94,7 +94,11 @@ export default {
   },
   computed: {
     userid: function () {
-      return this.payload.userid
+      if (this.payload && this.payload.userid) {
+        return this.payload.userid
+      } else {
+        return null
+      }
     },
     payload: function () {
       var payload = this.$store.getters.payload || null
@@ -103,7 +107,8 @@ export default {
         return payload
       } else if (payload && payload.constructor === String) {
         console.log('string payload: ' + payload)
-        return JSON.parse(payload)
+        var data = JSON.parse(payload)
+        return data
       } else {
         return { access: 'public' }
       }
@@ -146,6 +151,9 @@ export default {
 
       this.status = 'loading...'
       console.log('retrieve interests via axios from ' + URL)
+
+      console.log('use api: ' + this.URL)
+      console.log('headers: ' + JSON.stringify(this.urlHeader))
 
       var _this = this
       axios(this.URL + '/interests', {method: 'GET', headers: this.urlHeader})
