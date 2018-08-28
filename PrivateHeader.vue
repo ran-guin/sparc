@@ -11,7 +11,7 @@
         table
           tr
             td(v-if="staff")
-              b staff
+              b.user {{staff}}
             td(v-else)
               h4
                 LoginButton(:payload='payload')
@@ -117,6 +117,9 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+.user {
+  font-size: 2rem;
+}
 .info-header {
   // padding: 10px;
   // height: 60px;
