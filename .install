@@ -1,5 +1,5 @@
-`cp -R ./../Standard/setup/* ./../../../`
-`cp -R ./setup/* ./../../../`
+`cp -R ./../Standard/setup/* ./../../../../`
+`cp -R ./setup/* ./../../../../`
 
 
 
