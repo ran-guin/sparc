@@ -4,11 +4,11 @@
       a(href='#' @click.prevent="show=page" v-bind:class="[{onPage: show===page}, {offPage: show!==page}]")
         b.submenu {{page}}
     hr.eventHR
-    div(v-if="show === 'Upcoming'")  
+    div(v-if="show === 'Upcoming'")
       ul
         li(v-for='event in list')
           Event(:event='event' :modal='eventModal')
-    div(v-else-if="show === 'Invitations'")  
+    div(v-else-if="show === 'Invitations'")
       ul
         li(v-for='event in invites')
           Event(:event='event' :modal='eventModal')

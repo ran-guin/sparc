@@ -8,7 +8,7 @@
           span &nbsp;
       hr
       // div.col-md-4
-      div(v-show="show === 'Basics'")  
+      div(v-show="show === 'Basics'")
         h3(v-if='forms.basics && forms.basics.Title') {{forms.basics.Title}}
         h3(v-else) Create Event
         DBForm(:options='basicFields' access='append' title: 'Host Event' :onSave='saveBasics' :record='forms.basic')
@@ -44,7 +44,7 @@
         div.col-md-4
           DBForm(:options='basicFields' access='read' title: 'Host Event' :onSave='saveBasics' :record='forms.basics')
           hr
-          DBForm(:options='detailsFields' access='read' title: 'Host Event' :onSave='saveDetails' :record='forms.details')       
+          DBForm(:options='detailsFields' access='read' title: 'Host Event' :onSave='saveDetails' :record='forms.details')
         div.col-md-4
           h4 Primary Activity
             b {{JSON.stringify(this.forms.primary_names)}}

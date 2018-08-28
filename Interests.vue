@@ -7,7 +7,7 @@
       h3 Specify Interests
       div(v-show="show==='Sport'")
         RecursiveList(:list='sport' :onSelect='skillModal' :options='options')
-      div(v-show="show==='Cultural'")      
+      div(v-show="show==='Cultural'")
         RecursiveList(:list='cultural' :onSelect='skillModal' :options='options')
       div(v-show="show==='Social'")
         RecursiveList(:list='social' :onSelect='skillModal' :options='options')
