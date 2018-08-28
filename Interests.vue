@@ -18,7 +18,7 @@
           h4 Sporting Interests:
         RecursiveList(:list='sport' :onSelect='skillModal' :selected='interest_ids' :options='listOptions')
       div(v-show="show==='Cultural'")
-        u 
+        u
           h4 Cultural Interests:
         RecursiveList(:list='cultural' :onSelect='skillModal' :selected='interest_ids' :options='listOptions')
 </template>
