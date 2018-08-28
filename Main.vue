@@ -7,9 +7,9 @@
         a(href='#' @click.prevent="showPage(page)" v-bind:class="[{onPage: show==page}, {offPage: show!=page}]")
           b.menuItem {{page}}
     div.myBody(v-bind:class="[{body1: bigHeader}, {body2: !bigHeader}]")
-      div
+      div.myBodyContents
         <!-- b Status: {{status}} -->
-        <!-- p &nbsp; -->
+        p &nbsp;
         About(v-if="show=='About'")
         Interests(v-else-if="show==='Interests'" :list='interests' :interest_ids='interest_ids' :payload='payload')
         Events(v-else-if="show==='Events'" :list='events' :invites='invites' :payload='payload')
@@ -325,14 +325,19 @@ a:hover {
   min-height: #{$min-height};
   // min-height: calc(100vh - #{$header-height} - #{$subheader-height} - #{$footer-height});
 }
+.body2 {
+  // padding-top: $subheader2-height;
+  min-height: #{$min-height};
+  // min-height: calc(100vh - #{$header2-height} - #{$subheader-height} - #{$footer2-height});
+}
+
 @media screen and (min-height: #{$min-height}) {
   .body1 {
     min-height: calc(100vh - #{$header-height} - #{$subheader-height} - #{$footer-height});
   }
-}
-.body2 {
-  // padding-top: $subheader2-height;
-  min-height: calc(100vh - #{$header2-height} - #{$subheader-height} - #{$footer2-height});
+  .body2 {
+    min-height: calc(100vh - #{$header2-height} - #{$subheader-height} - #{$footer2-height});
+  }
 }
 
 img.bg {
