@@ -143,49 +143,51 @@ export default {
       this.show = page
     },
     loadData: function () {
-      console.log('retrieve interests...')
-      axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+      if (this.userid) {
+        console.log('retrieve user data...')
+        axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
-      this.status = 'loading...'
-      console.log('retrieve interests via axios from ' + URL)
+        this.status = 'loading...'
+        console.log('retrieve interests via axios from ' + this.URL)
+        console.log('headers: ' + JSON.stringify(this.urlHeader))
 
-      console.log('use api: ' + this.URL)
-      console.log('headers: ' + JSON.stringify(this.urlHeader))
+        var _this = this
+        axios(this.URL + '/interests', {method: 'GET', headers: this.urlHeader})
+          .then(function (result, err) {
+            if (err) {
+              _this.status = 'nexterr'
+              console.log('set axios error...')
+              _this.$store.commit('setError', {context: 'Searching For ' + _this.scope, err: err})
+              console.log('axios error: ' + err)
+            } else {
+              _this.status += 'loaded interests...'
+              _this.interests = result.data
 
-      var _this = this
-      axios(this.URL + '/interests', {method: 'GET', headers: this.urlHeader})
-        .then(function (result, err) {
-          if (err) {
-            _this.status = 'nexterr'
-            console.log('set axios error...')
-            _this.$store.commit('setError', {context: 'Searching For ' + _this.scope, err: err})
-            console.log('axios error: ' + err)
-          } else {
-            _this.status += 'loaded interests...'
-            _this.interests = result.data
+              console.log('axios returned interest value(s): ' + JSON.stringify(_this.interests))
+              console.log('ids1: ' + JSON.stringify(_this.interest_ids))
 
-            console.log('axios returned interest value(s): ' + JSON.stringify(_this.interests))
-            console.log('ids1: ' + JSON.stringify(_this.interest_ids))
+              console.log('interest_ids: ' + _this.interest_ids.join(', '))
+              _this.$store.commit('setHash', {key: 'interests', value: _this.interests})
+            }
+          })
 
-            console.log('interest_ids: ' + _this.interest_ids.join(', '))
-            _this.$store.commit('setHash', {key: 'interests', value: _this.interests})
-          }
-        })
-
-      console.log('retrieve skills via axios from ' + URL)
-      axios(URL + '/skills', {method: 'GET', headers: this.urlHeader})
-        .then(function (result, err) {
-          if (err) {
-            console.log('set axios error...')
-            _this.$store.commit('setError', {context: 'Searching For ' + _this.scope, err: err})
-            console.log('axios error: ' + err)
-          } else {
-            _this.status += 'loaded skills...'
-            _this.skills = result.data
-            _this.$store.commit('setHash', {key: 'skills', value: result.data})
-            console.log('axios returned skill value(s): ' + JSON.stringify(result.data))
-          }
-        })
+        console.log('retrieve skills via axios from ' + this.URL)
+        axios(this.URL + '/skills', {method: 'GET', headers: this.urlHeader})
+          .then(function (result, err) {
+            if (err) {
+              console.log('set axios error...')
+              _this.$store.commit('setError', {context: 'Searching For ' + _this.scope, err: err})
+              console.log('axios error: ' + err)
+            } else {
+              _this.status += 'loaded skills...'
+              _this.skills = result.data
+              _this.$store.commit('setHash', {key: 'skills', value: result.data})
+              console.log('axios returned skill value(s): ' + JSON.stringify(result.data))
+            }
+          })
+      } else {
+        console.log('no user ... defer loading of data...')
+      }
     },
     userInterests: function () {
       var append = ''
