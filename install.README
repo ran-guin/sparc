@@ -42,4 +42,14 @@ cd ..
 
 cp -R VUEPROJ/dist/* PROJNAME/public/
 
-cp -R VUEPROJ/setup/adonis/* PROJNAME/ 
+cp -R VUEPROJ/setup/adonis/* PROJNAME/
+
+conn = prompt()
+
+export DB_CONNECTION='mysql'
+export DB_USER='tester'
+export DB_PASSWORD='testpass'
+export DB_DATABASE='cosine'
+
+add mysql to adonis package..?
+
