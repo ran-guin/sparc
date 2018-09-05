@@ -5,13 +5,13 @@
         hr
       div.col-title.col-md-4
         h3 Looking for your Tribe ?
-        img.welcome-slides(src='/static/images/sparc/alone.jpg')
+        img.welcome-slides(src='/static/images/sparc/alone-sunset.jpg')
       div.col-md-4
         h3 Find / Host Events
-        img.welcome-slides(src='/static/images/sparc/host.jpg' )
+        img.welcome-slides(src='/static/images/sparc/host-glasses.jpg' )
       div.col-md-4
         h3 Connect
-        img.welcome-slides(src='/static/images/sparc/event.jpg')
+        img.welcome-slides(src='/static/images/sparc/event-table.jpg')
 </template>
 
 <script>
