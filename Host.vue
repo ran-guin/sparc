@@ -14,9 +14,11 @@
         p These guidelines are in place to maximize the quality of active hosts
       div(v-else)
         span(v-for='page in pages' style='padding-left: 50px')
-          a(href='#' @click.prevent="show=page" v-bind:class="[{onPage: show===page}, {offPage: show!==page}]")
+          a(href='#' @click.prevent="show=page" v-bind:class="[{onStep: show===page}, {offStep: show!==page}]")
             b.submenu {{page}} &nbsp;
-            icon(name='check-circle' v-show='completed[page]' color='green')
+            icon(name='question-circle' v-if='show===page' color='orange')            
+            icon(name='check-circle' v-else-if='completed[page]' color='green')
+            icon(name='times' v-else-if='!completed[page]' color='red')
             span &nbsp;
         hr
         // div.col-md-4
@@ -34,7 +36,7 @@
         div(v-show="show === 'Details'")
           p Fill in other details before finalizing your event
           DBForm(:options='detailsFields' access='append' title: 'Host Event' :onSave='saveDetails' :record='forms.details')
-        div(v-show="show === 'Activities' || show === 'Summary'")
+        div(v-show="show === 'Activity' || show === 'Summary'")
           p Select the activities/interests that will be the focus of your event
           h3 Primary Activity
           RecursiveList(:list='aliases' :options='primaryOptions' :onPick='pickMe' :secondaryPick='skillPick' :onSave='savePrimary')
@@ -87,9 +89,9 @@ export default {
   },
   data () {
     return {
-      pages: ['Basics', 'Activities', 'Interests', 'Details', 'Options', 'Summary'],
+      pages: ['Basics', 'Activity', 'Interests', 'Details', 'Options', 'Summary'],
       show: 'Basics',
-      primaryOptions: { selectOne: true, clear: true, modalID: 'eventModal' },
+      primaryOptions: { selectable: true, clear: true, modalID: 'eventModal' },
       secondaryOptions: { selectable: true, clear: true, modalID: 'eventModal' },
       basicFields: {
         fields: config.forms.eventBasics
@@ -118,9 +120,13 @@ export default {
     this.status = 'mounted...'
   },
   props: {
-    list: { type: Array }
+    list: { type: Array },
+    payload: { type: Object }
   },
   computed: {
+    access: function () {
+      return this.payload.access
+    },
     aliases: function () {
       var aliases = []
       for (var i = 0; i < this.list.length; i++) {
@@ -207,3 +213,23 @@ export default {
   }
 }
 </script>
+<style>
+.onStep {
+  color: black;
+  font-weight: bold;
+  border-bottom: 5px solid green;
+  // background-color: grey !important;
+}
+.onStep:hover {
+  color: black;
+  // background-color: grey !important;
+}
+.offStep {
+  // background-color: grey !important;
+  color: grey;
+}
+.offStep:hover {
+  // background-color: darkgrey !important;
+  color: black;
+}
+</style>
