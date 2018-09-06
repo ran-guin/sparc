@@ -10,11 +10,11 @@
       p &nbsp;
       <!-- h3 Specify Interests -->
       div(v-show="show==='Social'")
-        RecursiveList(title='Social' :list='social' :onSelect='skillModal' :selected='interest_ids' :options='listOptions')
+        RecursiveList(title='Social Interests' :list='social' :onSelect='skillModal' :selected='interest_ids' :options='listOptions')
       div(v-show="show==='Sport'")
-        RecursiveList(title='Sport' :list='sport' :onSelect='skillModal' :selected='interest_ids' :options='listOptions')
+        RecursiveList(title='Sports Interests' :list='sport' :onSelect='skillModal' :selected='interest_ids' :options='listOptions')
       div(v-show="show==='Cultural'")
-        RecursiveList(title='Cultural' :list='cultural' :onSelect='skillModal' :selected='interest_ids' :options='listOptions')
+        RecursiveList(title='Cultural Interests' :list='cultural' :onSelect='skillModal' :selected='interest_ids' :options='listOptions')
 </template>
 
 <script>
