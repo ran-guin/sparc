@@ -10,12 +10,9 @@
       span.navbar-right
         table
           tr
-            td(v-if="staff")
-              b.user {{staff}}
-            td(v-else)
-              h4
-                LoginButton(:payload='payload')
-            td
+            td.header-text
+              Authorization(:payload='payload')
+            td.header-text
               SearchButton()
     div.col-xs-12(style='padding: 0px')
       hr(style="height: 0px; border: none; border-bottom: solid grey 3px")
@@ -24,7 +21,8 @@
 <script>
 import User from '@/components/User'
 // import LoginPopup from '@/components/Standard/LoginPopup'
-import LoginButton from '@/components/Standard/LoginButton'
+// import LoginButton from '@/components/Standard/LoginButton'
+import Authorization from '@/components/Standard/Authorization'
 import SearchButton from '@/components/Standard/SearchButton'
 
 import 'vue-awesome/icons/home'
@@ -41,7 +39,7 @@ export default {
   },
   components: {
     User,
-    LoginButton,
+    Authorization,
     SearchButton
   },
   props: {
@@ -117,6 +115,14 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+.header-text {
+  vertical-align: top;
+  font-size: 2rem;
+}
+
+.log-text {
+  font-size: 2rem
+}
 .user {
   font-size: 2rem;
 }
