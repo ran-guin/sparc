@@ -11,9 +11,9 @@
       span.navbar-right
         table
           tr
-            td(v-if="staff")
-              b {{staff}}
-            td
+            td.header-text
+              Authorization(:payload='payload')
+            td.header-text
               SearchButton()
     div.col-xs-12(style='padding: 0px')
       hr
@@ -22,7 +22,7 @@
 <script>
 import User from '@/components/User'
 // import LoginPopup from '@/components/Standard/LoginPopup'
-import LoginButton from '@/components/Standard/LoginButton'
+import Authorization from '@/components/Standard/Authorization'
 import SearchButton from '@/components/Standard/SearchButton'
 
 import 'vue-awesome/icons/home'
@@ -39,7 +39,7 @@ export default {
   },
   components: {
     User,
-    LoginButton,
+    Authorization,
     SearchButton
   },
   props: {
@@ -115,6 +115,9 @@ export default {
           this.$delete(this.staff, keys[j])
         }
       } else { console.log('staff already empty') }
+    },
+    logout () {
+
     }
   }
 }
