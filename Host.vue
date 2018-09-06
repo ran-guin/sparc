@@ -36,7 +36,7 @@
         div(v-show="show === 'Details'")
           p Fill in other details before finalizing your event
           DBForm(:options='detailsFields' access='append' title: 'Host Event' :onSave='saveDetails' :record='forms.details')
-        div(v-show="show === 'Primary Activity' || show === 'Summary'")
+        div(v-show="show === 'Activity' || show === 'Summary'")
           p Select the activities/interests that will be the focus of your event
           RecursiveList(title='Primary Activity' :list='aliases' :options='primaryOptions' :onPick='pickMe' :secondaryPick='skillPick' :onSave='savePrimary')
           // div(v-else)
