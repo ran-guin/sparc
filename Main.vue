@@ -10,12 +10,12 @@
       div.myBodyContents
         <!-- b Status: {{status}} -->
         p &nbsp;
-        About(v-if="show=='About'")
-        Interests(v-else-if="show==='Interests'" :list='interests' :interest_ids='interest_ids' :payload='payload')
-        Events(v-else-if="show==='Events'" :list='events' :invites='invites' :payload='payload')
-        Host(v-else-if="show==='Host'" :list='interests' :payload='payload')
-        Ideas(v-else-if="show==='Ideas'")
-        Welcome(v-else)
+        About(v-show="show=='About'")
+        Interests(v-show="show==='Interests'" :list='interests' :interest_ids='interest_ids' :payload='payload')
+        Events(v-show="show==='Events'" :list='events' :invites='invites' :payload='payload')
+        Host(v-show="show==='Host'" :list='interests' :payload='payload')
+        Ideas(v-show="show==='Ideas'")
+        Welcome(v-show="!show")
     PublicFooter.footer(v-bind:class=" [{footer1: show==''}, {footer2: show!==''}]" :payload='payload')
 </template>
 
@@ -36,6 +36,7 @@ import PublicFooter from './PublicFooter.vue'
 import axios from 'axios'
 import lodash from 'lodash'
 import config from './config.js'
+// import auth from '../../auth'
 
 import 'vue-awesome/icons/exclamation-triangle'
 import 'vue-awesome/icons/check-circle'
@@ -135,6 +136,7 @@ export default {
     userid: function (val) {
       console.log('WATCHED payload updated in Main: ' + JSON.stringify(val))
       this.userInterests()
+      this.loadData()
       //   this.userSkills()
     }
   },
@@ -195,6 +197,7 @@ export default {
         append = '?userid=' + this.payload.userid
       } else { console.log('no payload userid') }
 
+      console.log(this.URL + 'interests' + append)
       var _this = this
       axios(this.URL + '/interests' + append, {method: 'GET', headers: this.urlHeader})
         .then(function (result, err) {
@@ -203,7 +206,7 @@ export default {
           } else {
             _this.interest_ids = lodash.map(result.data, 'id')
             // console.log(JSON.stringify(lodash.map(result.data, 'id')))
-            console.log('reset interest_ids: ' + JSON.stringify(_this.interest_ids))
+            console.log('reset interest_ids to: ' + JSON.stringify(_this.interest_ids))
           }
         })
     },
@@ -235,7 +238,7 @@ $subheader-background-colour: transparent;
 $body-background-colour: #ddd;
 $body-colour: black;
 
-$min-height: 70rem;
+$min-height: 50rem;
 
 // Secondary page type:
 
@@ -409,7 +412,7 @@ img.bg {
 }
 
 .submenu {
-  font-size: 30px;
+  font-size: 20px;
 }
 
 </style>
