@@ -16,7 +16,7 @@
         span(v-for='page in pages' style='padding-left: 50px')
           a(href='#' @click.prevent="show=page" v-bind:class="[{onStep: show===page}, {offStep: show!==page}]")
             b.submenu {{page}} &nbsp;
-            icon(name='question-circle' v-if='show===page' color='orange')            
+            icon(name='question-circle' v-if='show===page' color='orange')
             icon(name='check-circle' v-else-if='completed[page]' color='green')
             icon(name='times' v-else-if='!completed[page]' color='red')
             span &nbsp;
@@ -36,17 +36,15 @@
         div(v-show="show === 'Details'")
           p Fill in other details before finalizing your event
           DBForm(:options='detailsFields' access='append' title: 'Host Event' :onSave='saveDetails' :record='forms.details')
-        div(v-show="show === 'Activity' || show === 'Summary'")
+        div(v-show="show === 'Primary Activity' || show === 'Summary'")
           p Select the activities/interests that will be the focus of your event
-          h3 Primary Activity
-          RecursiveList(:list='aliases' :options='primaryOptions' :onPick='pickMe' :secondaryPick='skillPick' :onSave='savePrimary')
+          RecursiveList(title='Primary Activity' :list='aliases' :options='primaryOptions' :onPick='pickMe' :secondaryPick='skillPick' :onSave='savePrimary')
           // div(v-else)
           //   b {{JSON.stringify(this.forms.primary)}}
 
         div(v-show="show === 'Interests' || show === 'Summary'")
           p Filter invitees on other interests they may have to target like-minded individuals (optional)
-          h3 Secondary Interest(s)
-          RecursiveList(:list='aliases' :options='secondaryOptions' :secondaryPick='skillPick' :onSave="saveSecondary")
+          RecursiveList(title='Secondary Interest(s)' :list='aliases' :options='secondaryOptions' :secondaryPick='skillPick' :onSave="saveSecondary")
           // div(v-else)
           //   b {{JSON.stringify(this.forms.secondary)}}
         // div.col-md-4
