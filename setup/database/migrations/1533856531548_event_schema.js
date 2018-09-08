@@ -7,7 +7,8 @@ class EventSchema extends Schema {
     this.create('event', (table) => {
       table.increments()
       table.string('name')
-      table.integer('host').references('id').inTable('user')
+      table.integer('host').unsigned().index('host')
+      table.foreign('host').references('user.id')
       table.enu('status', ['cached', 'published', 'confirmed', 'running', 'finished', 'cancelled'])
       table.string('location')
       table.text('description')
