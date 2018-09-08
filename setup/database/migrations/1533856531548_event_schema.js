@@ -4,14 +4,19 @@ const Schema = use('Schema')
 
 class EventSchema extends Schema {
   up () {
-    this.create('events', (table) => {
+    this.create('event', (table) => {
       table.increments()
+      table.string('name')
+      table.integer('host').references('id').inTable('user')
+      table.enu('status', ['cached', 'published', 'confirmed', 'running', 'finished', 'cancelled'])
+      table.string('location')
+      table.text('description')
       table.timestamps()
     })
   }
 
   down () {
-    this.drop('events')
+    this.drop('event')
   }
 }
 
