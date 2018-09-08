@@ -108,6 +108,32 @@ export default {
     'multi-level user verification process improves accountability of members for greater comfort level',
     'invitation-based members and various identify verification systems reduce abuse and increase quality of members (non-members can also attend public events)'
   ],
+  featured_ideas: [
+    {
+      name: 'Avoid cooking alone',
+      description: 'Cook simple meals together in small groups (2-4).  Intended to be very simple meals simply intended to reduce the monotony and isolation of prepping, cooking, eating & cleaning alone.'
+    },
+    {
+      name: 'Themed Dinner Hosting (paid)',
+      description: 'Like cooking or hosting dinner parties?  Cook up a multi-course feast and get paid for your effort and have a great time in the meantime.  These can also be combined with other social gathering ideas (potlucks, conversational topics, theme parties, boardgames etc)'
+    },
+    {
+      name: 'Social conversation (philosphy cafe plus)',
+      description: 'Connect with friends strangers for fascinating discussions on a variety of subjects'
+    },
+    {
+      name: 'Movie club plus',
+      description: 'Catch a film, but with an emphasis on discussion afterwards over dinner with friends or strangers'
+    },
+    {
+      name: 'Flash Mobs',
+      description: 'Organize a flash mob.  Energetic, mood-enhancing.  Normally complicated to organize, but in this format it is easy.'
+    },
+    {
+      name: 'Alternative to Online Dating',
+      description: 'Old school events bringing together like-minded strangers within a specified age group to socialize together around common activities of interest'
+    }
+  ],
   host_ideas: [
     {
       name: 'Host a dinner party (and get paid)',
