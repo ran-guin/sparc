@@ -63,21 +63,18 @@ export default {
       return options
     },
     sport: function () {
-      console.log('retrieved sport list: ')
       var list = this.split_list['sport'] || []
-      console.log(JSON.stringify(list))
+      console.log('retrieved sport list: ' + list.length)
       return list
     },
     cultural: function () {
-      console.log('retrieved cultural list: ')
       var list = this.split_list['cultural'] || []
-      console.log(JSON.stringify(list))
+      console.log('retrieved cultural list: ' + list.length)
       return list
     },
     social: function () {
-      console.log('retrieved social list: ')
       var list = this.split_list['social'] || []
-      console.log(JSON.stringify(list))
+      console.log('retrieved social list: ' + list.length)
       return list
     }
 
@@ -136,7 +133,7 @@ export default {
         }
       }
       console.log('generated sections: ' + this.sections.join(', '))
-      console.log('generated split_list: ' + JSON.stringify(this.split_list))
+      // console.log('generated split_list: ' + JSON.stringify(this.split_list))
       this.loaded = true
     },
     definedSkill: function (record) {
