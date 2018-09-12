@@ -1,7 +1,7 @@
 <template lang='pug'>
     div.container
       // b F: {{JSON.stringify(forms)}}"
-      div(v-if="access !== 'host'")
+      div(v-if="access !== 'host' && access !== 'admin'")
         p Anyone can act as a host but there are a few requirements.
         p All hosts must have:
         ul
@@ -21,6 +21,11 @@
             icon(name='times' v-else-if='!completed[page]' color='red')
             span &nbsp;
         hr
+        button.btn.btn-primary(v-on:click='checkInvites()') Check Invites Based on Current Settings
+        span(v-if='invites')
+          b &nbsp; -> {{invites.length}} Invites Applicable
+          i [adjust user filters or activity lists to vary]
+
         // div.col-md-4
         div(v-show="show === 'Basics'")
           h3(v-if='forms.basics && forms.basics.Title') {{forms.basics.Title}}
@@ -67,6 +72,7 @@
             DBForm(:options='hostFilter' access='read' :record='forms.options')
           div.col-md-12
             hr
+            span &nbsp;
             button.btn.btn-primary.form-control(v-on:click='saveEvent()') Save Event
         hr
         b {{JSON.stringify(forms)}}
@@ -78,6 +84,7 @@ import Modal from './../Standard/Modal'
 import DBForm from './../Standard/DBForm'
 import RecursiveList from './../Standard/RecursiveList.vue'
 import config from './config.js'
+import axios from 'axios'
 
 export default {
   components: {
@@ -108,7 +115,8 @@ export default {
         onPick: this.eventModal
       },
       forms: {},
-      completed: {}
+      completed: {},
+      invites: null
     }
   },
   created () {
@@ -123,7 +131,11 @@ export default {
   },
   computed: {
     access: function () {
-      return this.payload.access
+      if (this.payload) {
+        return this.payload.access
+      } else {
+        return null
+      }
     },
     aliases: function () {
       var aliases = []
@@ -195,6 +207,26 @@ export default {
     saveEvent: function (form) {
       console.log('save Event')
       console.log(JSON.stringify(this.forms))
+    },
+    checkInvites: function (form) {
+      console.log('Check invites using input:')
+      console.log(JSON.stringify(this.forms))
+
+      var url = 'http://localhost:3333/invites?interest_ids=6,7'
+      // var data = { interest_ids: [1, 2, 3] }
+      var _this = this
+      axios.get(url)
+      // axios.post(url, data)
+        .then(function (result, err) {
+          if (err) {
+            console.log('set axios host error...')
+          } else {
+            console.log('R: ' + JSON.stringify(result.data))
+            _this.invites = result.data
+            // _this.invite_count = 333
+          }
+        })
+      console.log('passed..')
     },
     definedSkill: function (record) {
       if (record.skill_level) {
