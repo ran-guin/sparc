@@ -198,6 +198,13 @@ export default {
       description: 'Attend sessions for new moms, others going through grieving or depression'
     }
   ],
+  filters: [
+    {user: ['min_connections', 'min_attendance', 'max_attendance', 'max_distance']},
+    {event: ['gender', 'min_age', 'max_age', 'min_connections']}
+  ],
+  options: [
+    {user: ['invites']}
+  ],
   demo_filter: [
     {event_id: 1, min_age: 30, max_age: 45, gender: 'F'}
   ],
