@@ -8,7 +8,7 @@
           b.menuItem {{page}}
     div.myBody(v-bind:class="[{body1: bigHeader}, {body2: !bigHeader}]")
       div.myBodyContents
-        <!-- b Status: {{status}} -->
+        <!-- b Status: {{status}} : {{payload}} -->
         p &nbsp;
         About(v-show="show=='About'")
         Interests(v-show="show==='Interests'" :list='interests' :interest_ids='interest_ids' :payload='payload')
@@ -16,7 +16,7 @@
         Host(v-show="show==='Host'" :list='interests' :payload='payload')
         Ideas(v-show="show==='Ideas'")
         Welcome(v-show="!show")
-    PublicFooter.footer(v-bind:class=" [{footer1: show==''}, {footer2: show!==''}]" :payload='payload')
+    PublicFooter.footer(v-bind:class=" [{footer1: showMe==''}, {footer2: showMe!==''}]" :payload='payload')
 </template>
 
 <script>
@@ -46,7 +46,7 @@ import 'vue-awesome/icons/times'
 import 'vue-awesome/icons/question-circle'
 
 export default {
-  name: 'ovid',
+  name: 'sparc',
   components: {
     Welcome,
     Interests,
@@ -64,7 +64,7 @@ export default {
       memberPages: ['Interests', 'Events', 'Host'],
       hostPages: ['Interests', 'Events', 'Host'],
       publicPages: ['About', 'Interests', 'Events', 'Ideas'],
-      show: '',
+      showMe: '',
       onPage: 'Events',
       skillURL: config.skillMirrorUrl,
       interestURL: config.interestMirrorUrl,
@@ -79,7 +79,7 @@ export default {
       status: 'init',
       interest_ids: [],
       URL: config.apiURL,
-      urlHeader: config.apiHeader
+      urlHeader: {} // config.apiHeader
 
     }
   },
@@ -91,6 +91,15 @@ export default {
     this.loadData()
   },
   computed: {
+    show: function () {
+      if (this.showMe) {
+        return this.showMe
+      } else if (this.userid) {
+        return 'Interests'
+      } else {
+        return ''
+      }
+    },
     userid: function () {
       if (this.payload && this.payload.userid) {
         return this.payload.userid
@@ -138,16 +147,19 @@ export default {
       this.userInterests()
       this.loadData()
       //   this.userSkills()
+    },
+    payload: function (val) {
+      console.log('WATCHED payload ' + JSON.stringify(val))
     }
   },
   methods: {
     showPage (page) {
-      this.show = page
+      this.showMe = page
     },
     loadData: function () {
       if (this.userid) {
         console.log('retrieve user data...')
-        axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+        // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
         this.status = 'loading...'
         console.log('retrieve interests via axios from ' + this.URL)
@@ -165,10 +177,8 @@ export default {
               _this.status += 'loaded interests...'
               _this.interests = result.data
 
-              console.log('axios returned interest value(s): ' + JSON.stringify(_this.interests))
-              console.log('ids1: ' + JSON.stringify(_this.interest_ids))
-
-              console.log('interest_ids: ' + _this.interest_ids.join(', '))
+              console.log('axios returned ' + _this.interests.length + ' interests')
+              // console.log('interest_ids: ' + _this.interest_ids.join(', '))
               _this.$store.commit('setHash', {key: 'interests', value: _this.interests})
             }
           })
@@ -184,7 +194,7 @@ export default {
               _this.status += 'loaded skills...'
               _this.skills = result.data
               _this.$store.commit('setHash', {key: 'skills', value: result.data})
-              console.log('axios returned skill value(s): ' + JSON.stringify(result.data))
+              console.log('axios returned ' + _this.skills.length + ' skills')
             }
           })
       } else {
@@ -197,7 +207,7 @@ export default {
         append = '?userid=' + this.payload.userid
       } else { console.log('no payload userid') }
 
-      console.log(this.URL + 'interests' + append)
+      console.log('axios call: ' + this.URL + 'interests' + append)
       var _this = this
       axios(this.URL + '/interests' + append, {method: 'GET', headers: this.urlHeader})
         .then(function (result, err) {
