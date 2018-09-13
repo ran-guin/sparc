@@ -7,7 +7,7 @@ class UserPreferenceSchema extends Schema {
     this.create('user_preference', (table) => {
       table.increments()
       table.integer('user_id').unsigned().notNullable()
-      table.foreign('user_id').references('user.id').onDelete('cascade')
+      table.foreign('user_id').references('id').inTable('user').onDelete('cascade')
       table.timestamps()
     })
   }
