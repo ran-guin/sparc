@@ -11,7 +11,7 @@ class UserInterestSchema extends Schema {
       table.integer('interest_id').unsigned().notNullable().index('interest')     
       table.foreign('interest_id').references('interest.id').onDelete('cascade')      
       table.enu('level', ['mild', 'normal', 'high'])
-      table.integer('skill_id').unsigned().notNullable().index('skill')
+      table.integer('skill_id').unsigned().index('skill')
       table.foreign('skill_id').references('skill.id')
       table.timestamps()
     })
