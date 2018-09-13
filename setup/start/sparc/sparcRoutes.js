@@ -49,25 +49,37 @@ Route.get('sparc', async ( {request} ) => {
 	return 'FOUND IT!'
 })
 
+Route.get('verify', 'AuthController.verify')
+Route.get('getUser', 'AuthController.getUser')
+
 Route.get('interests', async ( {request} ) => {
-	var result = Database
-	.select(
+	console.log('retrieve interests from database')
+	var fields = [
 		'interest.id as id',
 		'interest.name as name',
 		'interest.parent_id as parent_id'
-	)
-	.from('interest')
+	]
 
-	// .where( function() {
-	// 	this
-	// 		.where('event.name', 'like', search)
-	// 		.orWhere('event.description', 'like', search)
-	// })
+	var userid 
+	if (request.input && request.input('userid')) {
+		userid = request.input('userid')
+	} 
 
-	return await result
+	var result = Database
+		.select(fields)
+		.from('interest')
+
+	if (userid) {
+		return await result
+			.innerJoin('user_interest', 'user_interest.interest_id', 'interest.id')
+			.where('user_interest.user_id', 'like', userid)
+	} else {
+		return await result
+	}
 })
 
 Route.get('skills', async ( {request} ) => {
+	console.log('retrieve skills from database')
 	var result = Database
 	.select(
 		'interest.name as interest',
