@@ -134,7 +134,7 @@ export default {
       description: 'Old school events bringing together like-minded strangers within a specified age group to socialize together around common activities of interest'
     }
   ],
-  host_ideas: [
+  host_examples: [
     {
       name: 'Host a dinner party (and get paid)',
       example: 'Invite only Spanish-speaking people who enjoy political discussions and dinner parties',
@@ -171,7 +171,7 @@ export default {
       description: 'Mutual monetary benefit goes almost entirely to participants and collaborating shops which benefit from exposure and increased clientelle'
     }
   ],
-  member_ideas: [
+  member_examples: [
     {
       name: 'Meet like-minded people',
       example: 'You can choose to only get invites from people you know or with similar interests',
@@ -198,10 +198,24 @@ export default {
       description: 'Attend sessions for new moms, others going through grieving or depression'
     }
   ],
-  filters: [
-    {user: ['min_connections', 'min_attendance', 'max_attendance', 'max_distance']},
-    {event: ['gender', 'min_age', 'max_age', 'min_connections']}
-  ],
+  filters: {
+    Participant: [
+      {name: 'min_connections', description: 'Only invite me to events that meet at least N interests that I have chosen'},
+      {name: 'min_attendance', description: 'Only invite me to events that have a minimum of N people attending'},
+      {name: 'max_attendance', description: 'Do not invite me to events that have a max_attendance of more than N people'},
+      {name: 'max_distance', description: 'Only invite me to events within N km of my location (defaults to 10 km)'},
+      {name: 'host', description: 'Only invite me to events hosted by specific people (connections, favourites etc)'},
+      {name: 'availability', description: 'Only invite me to events happening on specific days of the week and/or times'},
+      {name: 'advance_notice', description: 'Only invite me to events with a minimum number of days advance notice'},
+      {name: 'invitation_format', description: 'Option to turn off invitations, or request only weekly invite summary rather than individual invitations.  (though users may still search for events themselves)'}
+    ],
+    Event: [
+      {name: 'gender', description: 'specify gender for participants'},
+      {name: 'min_age', description: 'specify a minimum age for participants (will not invite people with unspecified birthdates)'},
+      {name: 'max_age', description: 'specify a minimum age for participants (will not invite people with unspecified birthdates)'},
+      {name: 'min_connections', description: 'only invite people that have a minimum of N interests within specified list'}
+    ]
+  },
   options: [
     {user: ['invites']}
   ],
