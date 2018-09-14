@@ -1,5 +1,5 @@
 <template lang='pug'>
-  div
+  div.full-screen
     PrivateHeader.header.header1(v-if='bigHeader' :payload='payload')
     MiniHeader.header.header2(v-else :payload='payload')
     div.subheader(v-bind:class="[{subheader1: bigHeader}, {subheader2: !bigHeader}]")
@@ -7,6 +7,7 @@
         a(href='#' @click.prevent="showPage(page)" v-bind:class="[{onPage: show==page}, {offPage: show!=page}]")
           b.menuItem {{page}}
     div.myBody(v-bind:class="[{body1: bigHeader}, {body2: !bigHeader}]")
+      img.bg(v-if="!show || show==='Home'")
       div.myBodyContents
         <!-- b Status: {{status}} : {{payload}} -->
         p &nbsp;
@@ -14,16 +15,19 @@
         Interests(v-show="show==='Interests'" :list='interests' :interest_ids='interest_ids' :payload='payload')
         Events(v-show="show==='Events'" :list='events' :invites='invites' :payload='payload')
         Host(v-show="show==='Host'" :list='interests' :payload='payload')
-        Ideas(v-show="show==='Ideas'")
-        Welcome(v-show="!show")
-    PublicFooter.footer(v-bind:class=" [{footer1: showMe==''}, {footer2: showMe!==''}]" :payload='payload')
+        Examples(v-show="show==='Examples'")
+        Filters(v-show="show==='Filters'")
+        Welcome(v-show="!show || show==='Home'" :interests='myInterests' :events='myEvents' :invites='myInvites' :payload='payload' :redirect='showPage')
+        <!-- Home(v-show="show==='Home'" :redirect='showPage') -->
+    PublicFooter.footer(v-bind:class=" [{footer1: showMe==='' || showMe==='Home'}, {footer2: showMe!=='' && showMe !== 'Home'}]" :payload='payload')
 </template>
 
 <script>
 import Welcome from './Welcome'
 import Interests from './Interests'
 import Events from './Events'
-import Ideas from './Ideas'
+import Examples from './Examples'
+import Filters from './Filters'
 import About from './About'
 import Host from './Host'
 
@@ -51,7 +55,8 @@ export default {
     Welcome,
     Interests,
     Events,
-    Ideas,
+    Examples,
+    Filters,
     About,
     Host,
     PrivateHeader,
@@ -61,9 +66,9 @@ export default {
   },
   data () {
     return {
-      memberPages: ['Interests', 'Events', 'Host'],
-      hostPages: ['Interests', 'Events', 'Host'],
-      publicPages: ['About', 'Interests', 'Events', 'Ideas'],
+      memberPages: ['Home', 'Interests', 'Events', 'Host'],
+      hostPages: ['Home', 'Interests', 'Events', 'Host'],
+      publicPages: ['Home', 'About', 'Interests', 'Events', 'Filters', 'Examples'],
       showMe: '',
       onPage: 'Events',
       skillURL: config.skillMirrorUrl,
@@ -79,8 +84,11 @@ export default {
       status: 'init',
       interest_ids: [],
       URL: config.apiURL,
-      urlHeader: {} // config.apiHeader
+      urlHeader: {}, // config.apiHeader
 
+      myInterests: [],
+      myEvents: [],
+      myInvites: []
     }
   },
   props: {
@@ -134,7 +142,7 @@ export default {
       return C
     },
     bigHeader: function () {
-      if (this.show) {
+      if (this.show && this.show !== 'Home') {
         return false
       } else {
         return true
@@ -215,8 +223,43 @@ export default {
             console.log('axios error: ' + err)
           } else {
             _this.interest_ids = lodash.map(result.data, 'id')
+            _this.myInterests = lodash.map(result.data, 'name')
             // console.log(JSON.stringify(lodash.map(result.data, 'id')))
             console.log('reset interest_ids to: ' + JSON.stringify(_this.interest_ids))
+          }
+        })
+    },
+    userEvents: function () {
+      var append = ''
+      if (this.payload && this.payload.userid) {
+        append = '?userid=' + this.payload.userid
+      } else { console.log('no payload userid') }
+
+      console.log('axios call: ' + this.URL + 'events' + append)
+      var _this = this
+      axios(this.URL + '/events' + append, {method: 'GET', headers: this.urlHeader})
+        .then(function (result, err) {
+          if (err) {
+            console.log('axios error: ' + err)
+          } else {
+            _this.myEvents = lodash.map(result.data, 'name')
+          }
+        })
+    },
+    userInvites: function () {
+      var append = ''
+      if (this.payload && this.payload.userid) {
+        append = '?userid=' + this.payload.userid
+      } else { console.log('no payload userid') }
+
+      console.log('axios call: ' + this.URL + 'invites' + append)
+      var _this = this
+      axios(this.URL + '/invites' + append, {method: 'GET', headers: this.urlHeader})
+        .then(function (result, err) {
+          if (err) {
+            console.log('axios error: ' + err)
+          } else {
+            _this.myInvites = lodash.map(result.data)
           }
         })
     },
@@ -234,31 +277,32 @@ $header-background-colour: white;
 $default-padding: 40px 50px;
 $header-colour: darkgrey;
 
-$header-height: 200px;
-$header-font-size: 40px;
+$header-height: 20rem;
+$header-font-size: 4rem;
 
-$footer-height: 150px;
-$footer-font-size: 30px;
+$footer-height: 15rem;
+$footer-font-size: 3rem;
 $footer-colour: black;
-$footer-background-colour: grey;
+$footer-background-colour: transparent;
 
-$subheader-height: 50px;
+$subheader-height: 5rem;
 $subheader-background-colour: transparent;
 
 $body-background-colour: #ddd;
 $body-colour: black;
 
-$min-height: 50rem;
+$min-height: 100rem;
+$min-height2: 40rem;
 
 // Secondary page type:
 
-$header2-height: 150px;
-$header2-font-size: 20px;
+$header2-height: 15rem;
+$header2-font-size: 2rem;
 
-$footer2-height: 60px;
-$footer2-font-size: 20px;
+$footer2-height: 6rem;
+$footer2-font-size: 2rem;
 
-$subheader2-height: 50px;
+$subheader2-height: 5rem;
 
 .page {
   /*margin-top: -20px;*/
@@ -283,7 +327,6 @@ $subheader2-height: 50px;
 
 .footer {
   background-color: $footer-background-colour;
-  color: $footer-colour;
   padding: $default-padding;
   width: 100%;
   padding-left: 40px;
@@ -292,12 +335,15 @@ $subheader2-height: 50px;
   padding-bottom: 15px;
 }
 .footer1 {
+  color: #ccc;
   height: $footer-height;
   font-size: $footer-font-size;
   padding-top: 50px;
+  z-index: 5;
 }
 
 .footer2 {
+  color: $footer-colour;
   height: $footer2-height;
   font-size: $footer2-font-size;
 }
@@ -313,9 +359,10 @@ a:hover {
 
 .subheader {
   color: white;
-  background-color: white;
+  background-color: transparent;
   width: 100%;
-  z-index: 10000;
+  // position: absolute;
+  z-index: 1;
 }
 
 .subheader1 {
@@ -326,47 +373,53 @@ a:hover {
   height: $subheader2-height;
 }
 
-.myBody {
-  background-color: $body-background-colour;
-  color: $body-colour;
-  font-size: 18px !important;
-  z-index: 10000;
-}
 .html {
-  min-height: $min-height;
+  // background-color: $body-background-colour;
+  // color: $body-colour;
+  font-size: 18px !important;
+  min-height: #{$min-height2}
 }
+
 .body1 {
   min-height: #{$min-height};
 }
 .body2 {
-  min-height: #{$min-height};
+  min-height: calc(100vh - #{$header2-height} - #{$subheader-height} - #{$footer2-height});
+  // min-height: #{$min-height2};
+  background-color: lightblue; // $body-background-colour;
+  color: $body-colour;
 }
 
 @media screen and (min-height: calc(#{$min-height} + #{$header-height} + #{$subheader-height} + #{$footer-height})) {
   .body1 {
     min-height: calc(100vh - #{$header-height} - #{$subheader-height} - #{$footer-height});
+    background-color: red;
   }
 }
-@media screen and (min-height: calc(#{$min-height} + #{$header2-height} + #{$subheader-height} + #{$footer2-height})) {
+// 50 - 15 + 2 + 6
+// @media screen and (min-height: calc(#{$min-height2} + #{$header2-height} + #{$subheader2-height} + #{$footer2-height})) {
+@media screen and (min-height: calc(#{$min-height2} - #{$header2-height} + #{$subheader2-height} + #{$footer2-height})) {
   .body2 {
     min-height: calc(100vh - #{$header2-height} - #{$subheader-height} - #{$footer2-height});
+    background-color: lightblue;
   }
 }
 
 img.bg {
   z-index: -1;
   /* Set rules to fill background */
-  min-height: 100%;
+  min-height: 100rem;
   /*min-width: 1024px;*/
   /*background-image: url("/static/images/teapour.jpeg");*/
 /* Center and scale the image nicely */
+
+  background-image: url('/static/images/sparc/alone-sunset.jpg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 
   /*background-color: rgba(255, 255, 0, 0.3);*/
 
-  z-index: 0;
   opacity: 20%;
 
   /* Set up proportionate scaling */
@@ -374,17 +427,18 @@ img.bg {
   height: auto;
 
   /* Set up positioning */
-  position: fixed;
-  top: calc(#{$header-height});
+  position: absolute;
+  top: $header-height + $subheader-height;
+  // top: calc(#{$header-height});
   left: 0;
 }
 
-@media screen and (max-width: 1024px) { /* Specific to this particular image */
-  img.bg {
-    left: 50%;
+// @media screen and (max-width: 1024px) { /* Specific to this particular image */
+  // img.bg {
+    // left: 50%;
     /*margin-left: -512px;   /* 50% */
-  }
-}
+  // }
+// }
 
 .overlay {
   position: absolute;
@@ -421,8 +475,21 @@ img.bg {
   font-size: 20px;
 }
 
+.body12 {
+  position: relative;
+  background-image: url('/static/images/sparc/alone-sunset.jpg');
+  background-size: cover;
+  min-height: 100rem;
+  height: 100%;
+  z-index: 5;
+}
+
 .submenu {
   font-size: 20px;
+}
+
+.heading {
+  color: blue;
 }
 
 </style>

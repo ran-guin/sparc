@@ -8,6 +8,7 @@
         div(v-show="show === 'SPARC'")
           u
             h3 What is it ?
+          p SPARC is a platform that makes it easy to:
           ul
             li(v-for='step in overview')
               i {{step}}
@@ -25,9 +26,18 @@
               i {{step}}
         div(v-show="show === 'Features'")
           h3 How is it different?
+          p A number of features set SPARC apart from other common platforms (such as Meetup, Airbnb experience, Online Dating etc)
           ul
             li(v-for='diff in differences')
               i {{diff}}
+        div(v-show="show === 'Ideas'")
+          h3 What sort of things would I find?
+          p There are a broad range of ideas for how both participants & hosts can use SPARC:
+          ul
+            li(v-for='idea in ideas')
+              b {{idea.name}}
+              p
+                i {{idea.description}}
 </template>
 
 <script>
@@ -39,11 +49,13 @@ export default {
   data () {
     return {
       show: 'SPARC',
-      pages: ['SPARC', 'Getting Started', 'Hosting', 'Features'],
+      pages: ['SPARC', 'Getting Started', 'Hosting', 'Features', 'Ideas'],
       overview: config.overview,
       setup: config.setup,
       hosting: config.hosting,
-      differences: config.demo_differences
+      differences: config.demo_differences,
+      ideas: config.featured_ideas
+      // incentives: config.demo_differences
     }
   },
   props: {

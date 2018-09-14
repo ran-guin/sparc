@@ -24,7 +24,7 @@
         button.btn.btn-primary(v-on:click='checkInvites()') Check Invites Based on Current Settings
         span(v-if='invites')
           b &nbsp; -> {{invites.length}} Invites Applicable
-          i [adjust user filters or activity lists to vary]
+          i &nbsp; &nbsp; [adjust user filters or activity lists to vary]
 
         // div.col-md-4
         div(v-show="show === 'Basics'")
@@ -41,13 +41,14 @@
         div(v-show="show === 'Details'")
           p Fill in other details before finalizing your event
           DBForm(:options='detailsFields' access='append' title: 'Host Event' :onSave='saveDetails' :record='forms.details')
-        div(v-show="show === 'Activity' || show === 'Summary'")
+
+        div(v-show="show === 'Activity'")
           p Select the activities/interests that will be the focus of your event
           RecursiveList(title='Primary Activity' :list='aliases' :options='primaryOptions' :onPick='pickMe' :secondaryPick='skillPick' :onSave='savePrimary')
           // div(v-else)
           //   b {{JSON.stringify(this.forms.primary)}}
 
-        div(v-show="show === 'Interests' || show === 'Summary'")
+        div(v-show="show === 'Interests'")
           p Filter invitees on other interests they may have to target like-minded individuals (optional)
           RecursiveList(title='Secondary Interest(s)' :list='aliases' :options='secondaryOptions' :secondaryPick='skillPick' :onSave="saveSecondary")
           // div(v-else)

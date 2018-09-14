@@ -138,6 +138,7 @@ export default {
 
 .info-left {
   text-align: left;
+  color: black;
 }
 
 .info-right {
