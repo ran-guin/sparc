@@ -34,14 +34,11 @@ Route.post('upload', 'GenericController.upload')
 Route.get('/user', 'UserController.userProfile')
 Route.get('/users', 'UserController.userList')
 
-// Route.get('/login', 'AuthController.index')
-Route.post('/login', 'AuthController.login')
 Route.get('/login', 'AuthController.login')
-Route.get('/loginDemo', 'AuthController.loginDemo')
+Route.post('login', 'AuthController.login')
 
-
-Route.get('/register', 'RegisterController.register')
-Route.post('register', 'RegisterController.register')
+Route.get('/register', 'AuthController.register')
+Route.post('register', 'AuthController.register')
 
 Logger.warning('config: ' + JSON.stringify(customConfig))
 console.log('Config: ' + JSON.stringify(customConfig))
