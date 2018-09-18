@@ -12,7 +12,7 @@ adonis install @adonisjs/validator
 
 > npm install
 
-> npm install -S vuex axios cors bootstrap@3.3.7 bootstrap-vue vue-form-generator vue-directive-tooltip lodash vue-async-computed
+> npm install -S vuex axios cors bootstrap@3.3.7 bootstrap-vue vue-form-generator vue-directive-tooltip lodash vue-async-computed mysql2
 
 > npm install -D pug vue-awesome node-sass sass-loader
 
