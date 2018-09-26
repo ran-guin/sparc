@@ -93,111 +93,152 @@ export default {
     {id: 4, name: 'Flash Mob', description: 'description of dance', location: 'Vancouver', skills: 'Dancing: intermediate', interests: 'Spontaneity, Flash mobs', image: 'dancing.jpg'},
     {id: 6, name: 'Singles book club', description: 'description of dance', location: 'Vancouver', interests: 'book club, dinner, single events', image: 'singles.png'}
   ],
-  demo_differences: [
-    'anyone can host events (once they are verified members)',
-    'advance payment options can make it easier for hosts to estimate accurate attendance',
-    'ability to flag or favourite other members, hosts, or events improves likelihood for positive experiences',
-    'events can combine multiple interests and activities increasing compatibility of participants',
-    'members only receive invitations that apply to their specified interests reducing unwanted spam invites',
-    'participants do not need to join a distinct group for each of their interests',
-    'advanced filtering enables higher compatibility among participants',
-    'events can include filtering for experience level to enable more compatible skill levels',
-    'facilitates communication with community regarding arts events giving them greater exposure',
-    'service fees (including built in ticketing system) are capped at 0-5% ensuring almost all money raised goes to hosting members',
-    'collaborations with local restaurants & cafes provide mutual benefit',
-    'multi-level user verification process improves accountability of members for greater comfort level',
-    'invitation-based members and various identify verification systems reduce abuse and increase quality of members (non-members can also attend public events)'
-  ],
-  featured_ideas: [
-    {
-      name: 'Avoid cooking alone',
-      description: 'Cook simple meals together in small groups (2-4).  Intended to be very simple meals simply intended to reduce the monotony and isolation of prepping, cooking, eating & cleaning alone.'
-    },
-    {
-      name: 'Themed Dinner Hosting (paid)',
-      description: 'Like cooking or hosting dinner parties?  Cook up a multi-course feast and get paid for your effort and have a great time in the meantime.  These can also be combined with other social gathering ideas (potlucks, conversational topics, theme parties, boardgames etc)'
-    },
-    {
-      name: 'Social conversation (philosphy cafe plus)',
-      description: 'Connect with friends strangers for fascinating discussions on a variety of subjects'
-    },
-    {
-      name: 'Movie club plus',
-      description: 'Catch a film, but with an emphasis on discussion afterwards over dinner with friends or strangers'
-    },
-    {
-      name: 'Flash Mobs',
-      description: 'Organize a flash mob.  Energetic, mood-enhancing.  Normally complicated to organize, but in this format it is easy.'
-    },
-    {
-      name: 'Alternative to Online Dating',
-      description: 'Old school events bringing together like-minded strangers within a specified age group to socialize together around common activities of interest'
-    }
-  ],
-  host_examples: [
-    {
-      name: 'Host a dinner party (and get paid)',
-      example: 'Invite only Spanish-speaking people who enjoy political discussions and dinner parties',
-      description: 'Like cooking or hosting dinner parties?  Cook up a multi-course feast and get paid for your effort and have a great time in the meantime.  These can also be combined with other social gathering ideas (potlucks, conversational topics, theme parties, boardgames etc)'
-    },
-    {
-      name: 'Organize a flash mob!',
-      example: 'Target local members who can dance and who are open to spontaneity',
-      description: 'Easily connects people who are interested in the type of event you would like to organize, and facilitates an easy communication thread to organize the event'
-    },
-    {
-      name: 'Teach a yoga class',
-      example: 'Optionally target people who like a particular type of yoga and/or those at a specified level',
-      description: 'Organize a small yoga class in your spare time.  Classes may have fixed cost or be by donation'
-    },
-    {
-      name: 'Plan an outing to a play',
-      example: 'Find strangers who also like plays and optionally share other similar interests',
-      description: 'Meet new people who share multiple common interests in a group environment'
-    },
-    {
-      name: 'Organize a hike',
-      example: 'Invite only inexperienced hikers who enjoy photography to do a casual photo walk',
-      description: 'Find like-minded people of similar experience level to take part in activities you enjoy'
-    },
-    {
-      name: 'Put on a community arts event',
-      example: 'generate targetted invites to members with specific or esoteric interests',
-      description: 'Get great exposure for arts & music events in your local community'
-    },
-    {
-      name: 'Support local restaurants & cafes',
-      example: 'host events at collaborating restaurants for discounts',
-      description: 'Mutual monetary benefit goes almost entirely to participants and collaborating shops which benefit from exposure and increased clientelle'
-    }
-  ],
-  member_examples: [
-    {
-      name: 'Meet like-minded people',
-      example: 'You can choose to only get invites from people you know or with similar interests',
-      description: 'Keep on top of events you are interested in that your friends (or friends of friends) are attending'
-    },
-    {
-      name: 'Avoid having to go out alone',
-      example: 'Find people with multiple shared interests',
-      description: 'If you are new in town, get out and meet other people going to a movie, concert, or dinner that have some similar interests'
-    },
-    {
-      name: 'Exercise your mind and body at the same time',
-      example: 'Organize a small local hike for up to 6 people who want to practice their Spanish, and speak at an intermediate level',
-      description: 'Meet activity partners that you connect with on multiple levels'
-    },
-    {
-      name: 'Meet other singles',
-      example: 'Any of the above ideas can be targetted to singles (either loosely or strictly)',
-      description: 'Find events that are targetted to like-minded singles, but meet them in an unpressured environment, knowing that attendees have simply indicated that they are open to attending singles events.  You can even specify a required connectivity level so that you will only get invites if someone you know is already going'
-    },
-    {
-      name: 'Get out and connect with others for community support',
-      example: 'Connect with volunteers, counselors, or other people going through similar issues',
-      description: 'Attend sessions for new moms, others going through grieving or depression'
-    }
-  ],
+  demo_differences: {
+    Accessibility: [
+      'registration is completely free of charge',
+      'participants do not need to join a distinct group for each of their interests',
+      'provides good targeted exposure for local community events (eg gallery openings, local theatre)',
+      'anyone can host events (once they are fully verified members)',
+      'although membership is by invitation, many public events are available for guest members so they can easily become connected'
+    ],
+    Filtering: [
+      'advanced filtering enables higher compatibility among participants',
+      'events can combine multiple interests and activities increasing compatibility of participants',
+      'members only receive invitations that apply to their specified interests and event preferences reducing unwanted spam invites',
+      'events can include filtering for experience level to enable more compatible skill levels',
+      'users have a lot of control over the types of invitations they receive and when they receive them (see filtering)'
+    ],
+    Features: [
+      'advance payment options can make it easier for hosts to estimate accurate attendance',
+      'service fees (including built in ticketing system) are capped at 0-5% ensuring almost all money raised goes to hosting members',
+      'collaborations with local restaurants & cafes provide mutual benefit',
+      'invitation-based membership reduces inappropriate users or trolls',
+      'multi-level user verification process and host reviews improves accountability of members & hosts for greater comfort level for everyone',
+      'ability to flag or favourite other members, hosts, or events increases control, and improves likelihood for positive experiences'
+    ]
+  },
+  examples: {
+    reasons: [
+      {
+        name: 'Connect with existing friends',
+        description: 'If you like you can simply receive invites only from friends.  The advantage of doing it here is that you might have friends that have similar interests that you are not aware of.  For instance, you may have hiking friends that also happen to like boardgames or salsa dancing.  Now if any of your friends hosts a boardgame night or a salsa dancing outing then you will automatically be invited even though they did not even know you were into that sort of thing.'
+      },
+      {
+        name: 'Connect with friends of friends',
+        description: 'You may still be wary of attending events with strangers, but you can also expand the invites you receive to friends of friends.  This enables you to meet people that you do not know that are connected to you through mutual friends.  It may turn out that some of them have a lot of similar interests as well!'
+      },
+      {
+        name: 'Meet new people',
+        description: 'If you do not limit your invitations to friends (or friends of friends) then you will receive invitations from anyone who happens to be hosting an event that you are interested in, allowing you to meet new people - often with multiple interests in common'
+      },
+      {
+        name: 'Meet people with multiple interests in common',
+        description: 'Since most events are tied to multiple interests, you are much more likely to form deep connections with other participants than you would for single topic events.  You can even indicate the minimum number of similar interests indicated before you are invited.  (For example you could avoid invites for basic hikes, but receive invites for hikes that also target participants who are interested in photography and adventure travel'
+      },
+      {
+        name: 'Meet singles in a non-intimidating atmosphere',
+        description: 'This is an excellent way to meet other single people with similar interests in natural environment - doing things that you enjoy.  Because they are group events, you meet a number of people without being put on the spot with someone one-on-one, and you get to see how people interact socially with others.  Also, since registrants are simply indicating singles events as one in a long list of interests, there is a good chance to meet single people who are not signed up to an online dating site.  Singles events will also usually be specifically gender balanced so that attendance numbers are essentially equal between men and women'
+      },
+      {
+        name: 'Organize your own activities',
+        description: 'Because it is so easy to become a host, and you have access to people with lots of diverse interests, you can easily start organizing things that you want to do and do not have to worry about who you know that would like to participate.  Whether you choose to invite friends, friends of friends, or strangers, the invitations are sent out automatically based simply upon your filtering criteria'
+      },
+      {
+        name: 'Know how many people are coming to your events!',
+        description: 'One frustating aspect of organizing events can be not knowing how many people are going to show up.  This is particularly annoying when you need to reserve a table to make some payments in advance.  We encourage hosts to post events which require advance payment - even if only a few bucks.  Sure some people may prefer not to commit, but the ones that sign up are likely to be more eager to take part and it makes things a lot easier to organize.'
+      },
+      {
+        name: 'Reach people more easily for more unusual events',
+        description: 'Uncommon events can be difficult to advertise for, but SPARC enables you to automatically target everyone with specific interests'
+      }
+    ],
+    hosting: [
+      {
+        name: 'Host a dinner party (and get paid)',
+        example: 'Invite only Spanish-speaking people who enjoy political discussions and dinner parties',
+        description: 'Like cooking or hosting dinner parties?  Cook up a multi-course feast and get paid for your effort and have a great time in the meantime.  These can also be combined with other social gathering ideas (potlucks, conversational topics, theme parties, boardgames etc)'
+      },
+      {
+        name: 'Organize a flash mob!',
+        example: 'Target local members who can dance and who are open to spontaneity',
+        description: 'Easily connects people who are interested in the type of event you would like to organize, and facilitates an easy communication thread to organize the event'
+      },
+      {
+        name: 'Teach a yoga class',
+        example: 'Optionally target people who like a particular type of yoga and/or those at a specified level',
+        description: 'Organize a small yoga class in your spare time.  Classes may have fixed cost or be by donation'
+      },
+      {
+        name: 'Plan an outing to a play',
+        example: 'Find strangers who also like plays and optionally share other similar interests',
+        description: 'Meet new people who share multiple common interests in a group environment'
+      },
+      {
+        name: 'Organize a hike',
+        example: 'Invite only inexperienced hikers who enjoy photography to do a casual photo walk',
+        description: 'Find like-minded people of similar experience level to take part in activities you enjoy'
+      },
+      {
+        name: 'Put on a community arts event',
+        example: 'generate targetted invites to members with specific or esoteric interests',
+        description: 'Get great exposure for arts & music events in your local community'
+      },
+      {
+        name: 'Support local restaurants & cafes',
+        example: 'host events at collaborating restaurants for discounts',
+        description: 'Mutual monetary benefit goes almost entirely to participants and collaborating shops which benefit from exposure and increased clientelle'
+      }
+    ],
+    participating: [
+      {
+        name: 'Meet like-minded people',
+        example: 'You can choose to only get invites from people you know or with similar interests',
+        description: 'Keep on top of events you are interested in that your friends (or friends of friends) are attending'
+      },
+      {
+        name: 'Avoid having to go out alone',
+        example: 'Find people with multiple shared interests',
+        description: 'If you are new in town, get out and meet other people going to a movie, concert, or dinner that have some similar interests'
+      },
+      {
+        name: 'Exercise your mind and body at the same time',
+        example: 'Organize a small local hike for up to 6 people who want to practice their Spanish, and speak at an intermediate level',
+        description: 'Meet activity partners that you connect with on multiple levels'
+      },
+      {
+        name: 'Develop close friendships & relationships',
+        example: 'The multi-dimensional nature of most events fosters deep connections through multiple common interests & values',
+        description: 'You control the level of connectivity that you feel comfortable with, and the how extended a community to interact with so that you can expand or deepen your social circle at your own pace'
+      },
+      {
+        name: 'Connect with community for support',
+        example: 'Connect with volunteers, counselors, and others dealing with challenges like you',
+        description: 'Attend support sessions for people dealing with similar issues (eg new moms, breakups, grieving or depression)'
+      }
+    ],
+    'common themes': [
+      {
+        name: 'Avoid cooking alone',
+        description: 'Cook simple meals together in small groups (2-4).  Intended to be very simple meals simply intended to reduce the monotony and isolation of prepping, cooking, eating & cleaning alone.'
+      },
+      {
+        name: 'Themed Dinner Hosting (paid)',
+        description: 'Like cooking or hosting dinner parties?  Cook up a multi-course feast and get paid for your effort and have a great time in the meantime.  These can also be combined with other social gathering ideas (potlucks, conversational topics, theme parties, boardgames etc)'
+      },
+      {
+        name: 'Social conversation (philosphy cafe plus)',
+        description: "Connect with friends and/or strangers for fascinating discussions on a variety of subjects over dinner, drinks, public talks, or just in someone's living room"
+      },
+      {
+        name: 'Movie club plus',
+        description: 'Watch films in a particular genre, with an emphasis on discussion afterwards over dinner or drinks'
+      },
+      {
+        name: 'Alternative to traditional Online Dating',
+        description: 'Old school events bringing together like-minded strangers within a specified age group to socialize together around common activities of interest.  This is a much more organic and less intimidating way of meeting people in person who are not specifically signing up for a dating website'
+      }
+    ]
+  },
   filters: {
     Participant: [
       {name: 'min_connections', description: 'Only invite me to events that meet at least N interests that I have chosen'},
