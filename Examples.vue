@@ -1,32 +1,18 @@
 <template lang='pug'>
   div.container
-    span(v-for='page in pages' style='padding-left: 50px')
-      a(href='#' @click.prevent="show=page" v-bind:class="[{onPage: show===page}, {offPage: show!==page}]")
-        b.submenu {{page}}
-
-    div(v-if="show === 'Hosting'")
-      p &nbsp;
-      ul
-        li(v-for='example in hostList')
-          u.example(v-if='example.name') {{example.name}}
-          span(v-if='example.description')
-            p
-              b {{example.description}}
-          span(v-if='example.example')
-            p
-              i eg: {{example.example}}
-    div(v-if="show === 'Attending'")
-      p &nbsp;
-      ul
-        li(v-for='example in list')
-          u.example(v-if='example.name') {{example.name}}
-          span(v-if='example.description')
-            p
-              b {{example.description}}
-          span(v-if='example.example')
-            p
-              i eg: {{example.example}}
-
+    span(v-for='type in example_types' style='padding-left: 50px')
+      a(href='#' @click.prevent="show=type" v-bind:class="[{onPage: show===type}, {offPage: show!==type}]")
+        b.submenu {{type}}
+        span &nbsp; &nbsp;
+    p &nbsp;
+    span(v-for='type in example_types' style='padding-left: 50px')
+      span(v-show='show === type')
+        ul
+          li(v-for='example in examples[type]')
+            u.example(v-if='example.name') {{example.name}}
+            span(v-if='example.description')
+              p
+                b {{example.description}}
 </template>
 
 <script>
@@ -39,18 +25,23 @@ export default {
   },
   data () {
     return {
-      pages: ['Hosting', 'Attending'],
-      show: 'Attending',
+      show: 'ideas',
       options: {
         type: Object
       },
-      list: config.member_examples,
-      hostList: config.host_examples
+      examples: config.examples
     }
   },
   props: {
   },
   computed: {
+    example_types: function () {
+      if (this.examples.constructor === Object) {
+        return Object.keys(this.examples)
+      } else {
+        return []
+      }
+    }
   },
   methods: {
     exampleModal: function (record) {
