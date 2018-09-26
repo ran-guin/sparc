@@ -5,10 +5,8 @@
           a(href='#' @click.prevent="show=page" v-bind:class="[{onPage: show===page}, {offPage: show!==page}]")
             b.submenu {{page}}
         p &nbsp;
-        div(v-show="show === 'SPARC'")
-          u
-            h3 What is it ?
-          p SPARC is a platform that makes it easy to:
+        div(v-show="show === 'What is it?'")
+          h3 SPARC is a platform that makes it easy to:
           ul
             li(v-for='step in overview')
               i {{step}}
@@ -24,12 +22,19 @@
           ul
             li(v-for='step in hosting')
               i {{step}}
-        div(v-show="show === 'Features'")
-          h3 How is it different?
-          p A number of features set SPARC apart from other common platforms (such as Meetup, Airbnb experience, Online Dating etc)
+        div(v-show="show === 'Differences'")
+          h3 How is it different from Meetup ?
+          p A number of differences set SPARC apart from other slightly similar platforms such as Meetup, Facebook events, Airbnb experience, Group Mailing lists, or Online Dating.
+          p We focus on providing much greater control to users & hosts resulting in a smaller but richer number of interactions. &nbsp; &nbsp;
+          h4 (Quality over Quantity)
           ul
-            li(v-for='diff in differences')
-              i {{diff}}
+            li(v-for='diffs, type in differences')
+              b {{type}}
+              ul
+                li(v-for='item in diffs')
+                  i {{item}}
+              br &nbsp;
+
         div(v-show="show === 'Ideas'")
           h3 What sort of things would I find?
           p There are a broad range of ideas for how both participants & hosts can use SPARC:
@@ -48,8 +53,8 @@ export default {
   },
   data () {
     return {
-      show: 'SPARC',
-      pages: ['SPARC', 'Getting Started', 'Hosting', 'Features', 'Ideas'],
+      show: 'What is it?',
+      pages: ['What is it?', 'Getting Started', 'Hosting', 'Differences', 'Ideas'],
       overview: config.overview,
       setup: config.setup,
       hosting: config.hosting,
