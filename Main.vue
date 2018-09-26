@@ -8,10 +8,10 @@
           b.menuItem {{page}}
     div.myBody(v-bind:class="[{body1: bigHeader}, {body2: !bigHeader}]")
       img.bg(v-if="!show || show==='Home'")
-      div.myBodyContents
+      div.myBodyContent
         <!-- b Status: {{status}} : {{payload}} -->
         p &nbsp;
-        About(v-show="show=='About'")
+        About(v-show="show=='SPARC'")
         Interests(v-show="show==='Interests'" :list='interests' :interest_ids='interest_ids' :payload='payload')
         Events(v-show="show==='Events'" :list='events' :invites='invites' :payload='payload')
         Host(v-show="show==='Host'" :list='interests' :payload='payload')
@@ -66,9 +66,9 @@ export default {
   },
   data () {
     return {
-      memberPages: ['Home', 'Interests', 'Events', 'Host'],
-      hostPages: ['Home', 'Interests', 'Events', 'Host'],
-      publicPages: ['Home', 'About', 'Interests', 'Events', 'Filters', 'Examples'],
+      memberPages: ['Home', 'Interests', 'Events', 'Host', 'Filters', 'Examples'],
+      hostPages: ['Home', 'Interests', 'Events', 'Host', 'Filters', 'Examples'],
+      publicPages: ['SPARC', 'Interests', 'Events', 'Filters', 'Examples'],
       showMe: '',
       onPage: 'Events',
       skillURL: config.skillMirrorUrl,
