@@ -33,7 +33,7 @@
               ul
                 li(v-for='item in diffs')
                   i {{item}}
-              br &nbsp;
+              br
 
         div(v-show="show === 'Ideas'")
           h3 What sort of things would I find?
@@ -43,6 +43,7 @@
               b {{idea.name}}
               p
                 i {{idea.description}}
+
 </template>
 
 <script>
