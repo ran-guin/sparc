@@ -7,6 +7,10 @@ class EventInterest extends Model {
     return 'event_interest'
   }
 
+  static get table () {
+    return 'event_interest'
+  }
+
 }
 
 module.exports = EventInterest
