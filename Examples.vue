@@ -9,7 +9,8 @@
       span(v-show='show === type')
         ul
           li(v-for='example in examples[type]')
-            u.example(v-if='example.name') {{example.name}}
+            b
+              u.example(v-if='example.name') {{example.name}}
             span(v-if='example.description')
               p
                 b {{example.description}}
@@ -25,7 +26,7 @@ export default {
   },
   data () {
     return {
-      show: 'ideas',
+      show: 'common themes',
       options: {
         type: Object
       },

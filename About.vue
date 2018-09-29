@@ -23,23 +23,21 @@
             li(v-for='step in hosting')
               i {{step}}
         div(v-show="show === 'Differences'")
-          h3 How is it different from Meetup ?
+          h3 How is it different from other platforms like Meetup ?
           p A number of differences set SPARC apart from other slightly similar platforms such as Meetup, Facebook events, Airbnb experience, Group Mailing lists, or Online Dating.
-          p We focus on providing much greater control to users & hosts resulting in a smaller but richer number of interactions. &nbsp; &nbsp;
-          h4 (Quality over Quantity)
+          p We focus on providing much greater control to users & hosts resulting in a smaller but richer events fostering deeper connections with others in your community. &nbsp; &nbsp;
           ul
             li(v-for='diffs, type in differences')
               b {{type}}
               ul
                 li(v-for='item in diffs')
                   i {{item}}
-              br &nbsp;
 
-        div(v-show="show === 'Ideas'")
-          h3 What sort of things would I find?
-          p There are a broad range of ideas for how both participants & hosts can use SPARC:
+        div(v-show="show === 'Why?'")
+          h3 Why should I register ?
+          p There are a broad range of {{reasons.length}} Reasons for using SPARC:
           ul
-            li(v-for='idea in ideas')
+            li(v-for='idea in reasons')
               b {{idea.name}}
               p
                 i {{idea.description}}
@@ -54,12 +52,12 @@ export default {
   data () {
     return {
       show: 'What is it?',
-      pages: ['What is it?', 'Getting Started', 'Hosting', 'Differences', 'Ideas'],
+      pages: ['What is it?', 'Getting Started', 'Hosting', 'Differences', 'Why?'],
       overview: config.overview,
       setup: config.setup,
       hosting: config.hosting,
       differences: config.demo_differences,
-      ideas: config.featured_ideas
+      reasons: config.reasons
       // incentives: config.demo_differences
     }
   },

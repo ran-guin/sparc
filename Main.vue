@@ -7,11 +7,11 @@
         a(href='#' @click.prevent="showPage(page)" v-bind:class="[{onPage: show==page}, {offPage: show!=page}]")
           b.menuItem {{page}}
     div.myBody(v-bind:class="[{body1: bigHeader}, {body2: !bigHeader}]")
-      img.bg(v-if="!show || show==='Home'")
+      img.bgimg(v-if="!show || show==='Home'")
       div.myBodyContent
         <!-- b Status: {{status}} : {{payload}} -->
         p &nbsp;
-        About(v-show="show=='SPARC'")
+        About(v-show="show==='About'")
         Interests(v-show="show==='Interests'" :list='interests' :interest_ids='interest_ids' :payload='payload')
         Events(v-show="show==='Events'" :list='events' :invites='invites' :payload='payload')
         Host(v-show="show==='Host'" :list='interests' :payload='payload')
@@ -68,7 +68,7 @@ export default {
     return {
       memberPages: ['Home', 'Interests', 'Events', 'Host', 'Filters', 'Examples'],
       hostPages: ['Home', 'Interests', 'Events', 'Host', 'Filters', 'Examples'],
-      publicPages: ['SPARC', 'Interests', 'Events', 'Filters', 'Examples'],
+      publicPages: ['About', 'Interests', 'Events', 'Filters', 'Examples'],
       showMe: '',
       onPage: 'Events',
       skillURL: config.skillMirrorUrl,
@@ -393,7 +393,7 @@ a:hover {
 @media screen and (min-height: calc(#{$min-height} + #{$header-height} + #{$subheader-height} + #{$footer-height})) {
   .body1 {
     min-height: calc(100vh - #{$header-height} - #{$subheader-height} - #{$footer-height});
-    background-color: red;
+    // background-color: red;
   }
 }
 // 50 - 15 + 2 + 6
@@ -401,12 +401,12 @@ a:hover {
 @media screen and (min-height: calc(#{$min-height2} - #{$header2-height} + #{$subheader2-height} + #{$footer2-height})) {
   .body2 {
     min-height: calc(100vh - #{$header2-height} - #{$subheader-height} - #{$footer2-height});
-    background-color: lightblue;
+    // background-color: lightblue;
   }
 }
 
-img.bg {
-  z-index: -1;
+img.bgimg {
+  z-index: -10;
   /* Set rules to fill background */
   min-height: 100rem;
   /*min-width: 1024px;*/
@@ -428,8 +428,8 @@ img.bg {
 
   /* Set up positioning */
   position: absolute;
-  top: $header-height + $subheader-height;
-  // top: calc(#{$header-height});
+  // top: $header-height;
+  top: calc(#{$header-height} + #{$subheader-height});
   left: 0;
 }
 

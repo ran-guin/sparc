@@ -78,6 +78,7 @@ export default {
 
 .container {
   color: white;
+  background-color: transparent;
 }
 
 .h3 {
