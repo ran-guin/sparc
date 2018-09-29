@@ -37,6 +37,9 @@ Route.get('/users', 'UserController.userList')
 Route.get('/login', 'AuthController.login')
 Route.post('login', 'AuthController.login')
 
+Route.get('/logout', 'AuthController.logout')
+Route.post('logout', 'AuthController.logout')
+
 Route.get('/register', 'AuthController.register')
 Route.post('register', 'AuthController.register')
 
