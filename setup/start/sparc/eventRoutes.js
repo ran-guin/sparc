@@ -38,6 +38,9 @@ scope: (event, interests, participant_interests)
 const Logger = use('Logger')
 const Route = use('Route')
 const Database = use('Database')
+const Event = use('App/Models/Event')
+
+Route.get('invitations', 'EventController.invitations')
 
 Route.get('events', async ( {request} ) => {
 	Logger.debug('get list of events..')

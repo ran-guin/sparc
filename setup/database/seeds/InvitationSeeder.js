@@ -14,6 +14,12 @@ const Factory = use('Factory')
 const Database = use('Database')
 
 class InvitationSeeder {
+  async dependencies() {
+    return [
+      'sparcUserSeeder',
+      'sparcEventSeeder'
+    ]
+  }
   async run () {
   	const invites = await Database.table('invitation').insert([
           {user_id: 5, event_id: 2, status: 'invited'},

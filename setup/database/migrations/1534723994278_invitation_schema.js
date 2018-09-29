@@ -10,6 +10,7 @@ class InvitationSchema extends Schema {
       table.foreign('user_id').references('user.id').onDelete('cascade')
       table.integer('event_id').unsigned().notNullable().index('event_id')
       table.foreign('event_id').references('event.id').onDelete('cascade')
+      table.timestamp('sent').notNullable().default(this.fn.now())
       table.enu('status', ['invited', 'declined', 'accepted', 'waiting list']).notNullable()
       table.enu('attendance', ['no show', 'attended'])
       table.timestamps()
