@@ -1,11 +1,5 @@
 `cp -R ./../Standard/setup/* ./../../../../`
 `cp -R ./setup/* ./../../../../`
-`cd ./../../../`
-`./node_modules/eslint/bin/eslint.js *.vue --fix`
-`yarn build --prod`
-`cp -R dist/* ../public/`
-
-conn = prompt()
 
 export DB_CONNECTION='mysql'
 export DB_USER='tester'

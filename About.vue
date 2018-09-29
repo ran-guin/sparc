@@ -32,6 +32,7 @@
               ul
                 li(v-for='item in diffs')
                   i {{item}}
+              br
 
         div(v-show="show === 'Why?'")
           h3 Why should I register ?
@@ -41,6 +42,7 @@
               b {{idea.name}}
               p
                 i {{idea.description}}
+
 </template>
 
 <script>
