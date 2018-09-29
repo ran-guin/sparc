@@ -21,7 +21,6 @@ export default {
     'Have fun',
     'Provide feedback to confirm guest attendance (and identity of newer members)'
   ],
-
   forms: {
     'event_filters': [
       { name: 'gender_balanced', type: "enum('No', 'Passive', 'Active')" },
@@ -110,48 +109,48 @@ export default {
     ],
     Features: [
       'advance payment options can make it easier for hosts to estimate accurate attendance',
-      'service fees (including built in ticketing system) are capped at 0-5% ensuring almost all money raised goes to hosting members',
+      'service fees (including built in ticketing system) are very low ensuring any money raised goes to hosting members and/or collaborators',
       'collaborations with local restaurants & cafes provide mutual benefit',
-      'invitation-based membership reduces inappropriate users or trolls',
+      'invitation-based membership reduces fake users or trolls',
       'multi-level user verification process and host reviews improves accountability of members & hosts for greater comfort level for everyone',
       'ability to flag or favourite other members, hosts, or events increases control, and improves likelihood for positive experiences'
     ]
   },
+  reasons: [
+    {
+      name: 'Arrange events with existing friends',
+      description: 'If you like you can simply receive invites only from friends.  The advantage of doing it here is that you might have friends that have similar interests that you are not aware of.  For instance, you may have hiking friends that also happen to like boardgames or salsa dancing.  Now if any of your friends hosts a boardgame night or a salsa dancing outing then you will automatically be invited even though they did not even know you were into that sort of thing.'
+    },
+    {
+      name: 'Connect with friends of friends',
+      description: 'You may still be wary of attending events with strangers, but you can also expand the invites you receive to friends of friends.  This enables you to meet people that you do not know that are connected to you through mutual friends.  It may turn out that some of them have a lot of similar interests as well!'
+    },
+    {
+      name: 'Meet new people',
+      description: 'If you do not limit your invitations to friends (or friends of friends) then you will receive invitations from anyone who happens to be hosting an event that you are interested in, allowing you to meet new people - often with multiple interests in common'
+    },
+    {
+      name: 'Find people with multiple interests in common',
+      description: 'Since most events are tied to multiple interests, you are much more likely to form deep connections with other participants than you would for single topic events.  You can even indicate the minimum number of similar interests indicated before you are invited.  (For example you could avoid invites for basic hikes, but receive invites for hikes that also target participants who are interested in photography and adventure travel'
+    },
+    {
+      name: 'Looking for an alternative to online dating?',
+      description: 'This is an excellent way to meet other single people with similar interests in natural environment - doing things that you enjoy.  Because they are group events, you meet a number of people without being put on the spot with someone one-on-one, and you get to see how people interact socially with others.  Also, since registrants are simply indicating singles events as one in a long list of interests, there is a good chance to meet single people who are not signed up to an online dating site.  Singles events will also usually be specifically gender balanced so that attendance numbers are essentially equal between men and women'
+    },
+    {
+      name: 'Organize your own activities',
+      description: 'Because it is so easy to become a host, and you have access to people with lots of diverse interests, you can easily start organizing things that you want to do and do not have to worry about who you know that would like to participate.  Whether you choose to invite friends, friends of friends, or strangers, the invitations are sent out automatically based simply upon your filtering criteria'
+    },
+    {
+      name: 'Know how many people are coming to your events!',
+      description: 'One frustating aspect of organizing events can be not knowing how many people are going to show up.  This is particularly annoying when you need to reserve a table to make some payments in advance.  We encourage hosts to post events which require advance payment - even if only a few bucks.  Sure some people may prefer not to commit, but the ones that sign up are likely to be more eager to take part and it makes things a lot easier to organize.'
+    },
+    {
+      name: 'Reach people more easily for more unusual events',
+      description: 'Uncommon events can be difficult to advertise for, but SPARC enables you to automatically target everyone with specific interests'
+    }
+  ],
   examples: {
-    reasons: [
-      {
-        name: 'Connect with existing friends',
-        description: 'If you like you can simply receive invites only from friends.  The advantage of doing it here is that you might have friends that have similar interests that you are not aware of.  For instance, you may have hiking friends that also happen to like boardgames or salsa dancing.  Now if any of your friends hosts a boardgame night or a salsa dancing outing then you will automatically be invited even though they did not even know you were into that sort of thing.'
-      },
-      {
-        name: 'Connect with friends of friends',
-        description: 'You may still be wary of attending events with strangers, but you can also expand the invites you receive to friends of friends.  This enables you to meet people that you do not know that are connected to you through mutual friends.  It may turn out that some of them have a lot of similar interests as well!'
-      },
-      {
-        name: 'Meet new people',
-        description: 'If you do not limit your invitations to friends (or friends of friends) then you will receive invitations from anyone who happens to be hosting an event that you are interested in, allowing you to meet new people - often with multiple interests in common'
-      },
-      {
-        name: 'Meet people with multiple interests in common',
-        description: 'Since most events are tied to multiple interests, you are much more likely to form deep connections with other participants than you would for single topic events.  You can even indicate the minimum number of similar interests indicated before you are invited.  (For example you could avoid invites for basic hikes, but receive invites for hikes that also target participants who are interested in photography and adventure travel'
-      },
-      {
-        name: 'Meet singles in a non-intimidating atmosphere',
-        description: 'This is an excellent way to meet other single people with similar interests in natural environment - doing things that you enjoy.  Because they are group events, you meet a number of people without being put on the spot with someone one-on-one, and you get to see how people interact socially with others.  Also, since registrants are simply indicating singles events as one in a long list of interests, there is a good chance to meet single people who are not signed up to an online dating site.  Singles events will also usually be specifically gender balanced so that attendance numbers are essentially equal between men and women'
-      },
-      {
-        name: 'Organize your own activities',
-        description: 'Because it is so easy to become a host, and you have access to people with lots of diverse interests, you can easily start organizing things that you want to do and do not have to worry about who you know that would like to participate.  Whether you choose to invite friends, friends of friends, or strangers, the invitations are sent out automatically based simply upon your filtering criteria'
-      },
-      {
-        name: 'Know how many people are coming to your events!',
-        description: 'One frustating aspect of organizing events can be not knowing how many people are going to show up.  This is particularly annoying when you need to reserve a table to make some payments in advance.  We encourage hosts to post events which require advance payment - even if only a few bucks.  Sure some people may prefer not to commit, but the ones that sign up are likely to be more eager to take part and it makes things a lot easier to organize.'
-      },
-      {
-        name: 'Reach people more easily for more unusual events',
-        description: 'Uncommon events can be difficult to advertise for, but SPARC enables you to automatically target everyone with specific interests'
-      }
-    ],
     hosting: [
       {
         name: 'Host a dinner party (and get paid)',
